@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Démocratie, démocraties — Révisions</title>
+<meta name="description" content="Flip cards de révision HGGSP Première, Thème 1 : Démocratie, démocraties. Répétition espacée, points et badges.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5efe3; --bg2:#ece3d1; --card:#fffdf8; --ink:#1c2230; --muted:#5d6475; --line:#ddd2bc;
+  --aegean:#1f4e79; --terra:#b8502f; --olive:#5f7032; --gold:#b98a1f; --eu:#2b4ea2;
+  --ok:#2f7d4f; --mid:#c08a12; --ko:#b23b2e;
+  --c-intro:var(--gold); --c-a1:var(--aegean); --c-a2:var(--terra); --c-oec:var(--eu);
+  --shadow:0 1px 2px rgba(40,30,10,.06),0 10px 30px -12px rgba(40,30,10,.25);
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151d; --bg2:#181e29; --card:#1c2331; --ink:#ece6d9; --muted:#9aa2b3; --line:#2c3547;
+    --aegean:#6fa7da; --terra:#e27f5f; --olive:#a9bd6b; --gold:#e0b94f; --eu:#8fa6ff;
+    --ok:#5cc489; --mid:#e6b13f; --ko:#ef6b5c;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151d; --bg2:#181e29; --card:#1c2331; --ink:#ece6d9; --muted:#9aa2b3; --line:#2c3547;
+  --aegean:#6fa7da; --terra:#e27f5f; --olive:#a9bd6b; --gold:#e0b94f; --eu:#8fa6ff;
+  --ok:#5cc489; --mid:#e6b13f; --ko:#ef6b5c;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 "Source Sans 3",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
+
+/* Frise grecque */
+.meander{height:14px;background:
+  linear-gradient(var(--aegean),var(--aegean)) 0 0/100% 2px no-repeat,
+  linear-gradient(var(--aegean),var(--aegean)) 0 100%/100% 2px no-repeat,
+  repeating-linear-gradient(90deg,transparent 0 6px,var(--aegean) 6px 8px,transparent 8px 14px);
+  opacity:.55}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hbar{display:flex;align-items:center;gap:14px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;cursor:pointer;background:none;border:0;padding:0}
+.brand .logo{width:34px;height:34px;border-radius:9px;background:var(--aegean);color:var(--bg);display:grid;place-items:center;font-family:Fraunces;font-weight:800}
+.brand span{font-family:Fraunces;font-size:1.05rem}
+.brand small{display:block;font-family:"Source Sans 3";font-weight:600;color:var(--muted);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.hstats{margin-left:auto;display:flex;align-items:center;gap:10px}
+.lvl{display:flex;align-items:center;gap:8px;min-width:0}
+.lvl .name{font-weight:700;font-size:.9rem;white-space:nowrap}
+.xpbar{width:120px;height:8px;border-radius:9px;background:var(--bg2);overflow:hidden;border:1px solid var(--line)}
+.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--terra));width:0;transition:width .6s}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:.88rem;white-space:nowrap}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+@media (max-width:640px){.xpbar{width:64px}.lvl .name{display:none}.brand small{display:none}.hide-sm{display:none}}
+@media (max-width:480px){.lvl{display:none}.brand span{font-size:.95rem}.hbar{gap:8px}}
+
+/* Accueil */
+.hero{padding:34px 0 10px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:end}
+.kicker{font-weight:700;color:var(--terra);letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+.hero h1{font-size:clamp(2.1rem,5vw,3.3rem);line-height:1.02;margin:.2em 0 .25em;font-weight:800}
+.hero p{color:var(--muted);margin:0;max-width:46ch}
+.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow)}
+.stat b{font-family:Fraunces;font-size:1.7rem;display:block;line-height:1.1}
+.stat span{color:var(--muted);font-size:.84rem;font-weight:600}
+@media (max-width:760px){.hero{grid-template-columns:1fr;gap:18px;padding-top:24px}}
+
+section.block{margin:26px 0}
+.block h2{font-size:1.25rem;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.block h2::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.modes{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.mode{position:relative;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.mode:hover{transform:translateY(-2px);border-color:var(--aegean)}
+.mode.main{background:var(--aegean);color:#fff;border-color:transparent}
+:root[data-theme="dark"] .mode.main{color:#0d1420}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mode.main{color:#0d1420}}
+.mode h3{margin:4px 0 4px;font-size:1.25rem}
+.mode p{margin:0;font-size:.92rem;opacity:.85}
+.mode .tag{font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.8}
+.sizes{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.sizes button{border:1px solid currentColor;background:transparent;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.85rem;opacity:.75}
+.sizes button.on{opacity:1;background:rgba(255,255,255,.22)}
+@media (max-width:760px){.modes{grid-template-columns:1fr 1fr}.mode.main{grid-column:1/-1}}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 13px;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:7px}
+.chip .dot{width:9px;height:9px;border-radius:50%}
+.chip.on{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.filters{display:grid;gap:10px}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem;color:var(--muted);cursor:pointer}
+.toggle input{accent-color:var(--aegean);width:18px;height:18px}
+
+.parts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.part{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--pc);border-radius:14px;padding:14px 16px}
+.part .top{display:flex;justify-content:space-between;gap:10px;font-weight:700}
+.part .top span:last-child{color:var(--muted);font-weight:600;font-size:.9rem;white-space:nowrap}
+.boxes{display:flex;height:10px;border-radius:9px;overflow:hidden;margin-top:10px;background:var(--bg2)}
+.boxes i{display:block;height:100%}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+@media (max-width:640px){.parts{grid-template-columns:1fr}}
+
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.badge{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;opacity:.42;filter:grayscale(1)}
+.badge.got{opacity:1;filter:none;border-color:var(--gold)}
+.badge .e{font-size:1.7rem}
+.badge b{display:block;font-size:.9rem;margin-top:2px}
+.badge small{color:var(--muted);font-size:.76rem;line-height:1.25;display:block}
+
+.foot{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;padding:24px 0 40px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);margin-top:30px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 15px;font-weight:700}
+.btn.primary{background:var(--aegean);border-color:transparent;color:#fff}
+.btn.ghost{background:transparent}
+
+/* Révision */
+#study{padding:20px 0 40px}
+.sbar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.prog{flex:1;height:10px;background:var(--bg2);border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.prog i{display:block;height:100%;background:var(--aegean);width:0;transition:width .35s}
+.combo{font-weight:800;font-family:Fraunces;color:var(--terra);min-width:74px;text-align:right;transition:transform .2s}
+.combo.pop{transform:scale(1.35)}
+.timer{font-family:Fraunces;font-weight:800;font-size:1.1rem}
+.timer.low{color:var(--ko)}
+
+.scene{perspective:1600px;position:relative}
+.card3d{display:grid;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,.7,.2,1);cursor:pointer;min-height:360px}
+.card3d.noanim{transition:none}
+.card3d.flipped{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:26px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.face::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--pc)}
+.back{transform:rotateY(180deg)}
+.ctag{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ctag .p{color:var(--pc)}
+.ctag .box{margin-left:auto;letter-spacing:0;text-transform:none}
+.q{font-family:Fraunces;font-weight:700;font-size:clamp(1.35rem,3.3vw,1.95rem);line-height:1.2;margin:auto 0;padding:24px 0;text-wrap:balance}
+.hint{color:var(--muted);font-size:.88rem;text-align:center}
+.ans{font-size:1.08rem;margin:16px 0 0}
+.ans b,.ans strong{color:var(--pc)}
+.ans ul{margin:.4em 0;padding-left:1.15em}
+.ans li{margin:.15em 0}
+.deep{margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--bg2);border:1px dashed var(--line);font-size:.95rem}
+.deep h4{margin:0 0 4px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--olive)}
+.qrecall{font-family:Fraunces;font-weight:700;font-size:1rem;color:var(--muted);margin-top:10px;line-height:1.3}
+
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.grades button{border:0;border-radius:14px;padding:14px 8px;font-weight:800;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;transition:transform .1s}
+.grades button:active{transform:scale(.97)}
+.grades button small{font-weight:600;opacity:.85;font-size:.78rem}
+.g0{background:var(--ko)}.g1{background:var(--mid)}.g2{background:var(--ok)}
+:root[data-theme="dark"] .grades button{color:#101520}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .grades button{color:#101520}}
+.flipbtn{width:100%;margin-top:16px;padding:15px;border-radius:14px;border:0;background:var(--ink);color:var(--bg);font-weight:800;font-size:1.02rem}
+.kbd{display:inline-block;border:1px solid currentColor;border-radius:5px;padding:0 5px;font-size:.72rem;opacity:.7;margin-left:6px}
+@media (hover:none){.kbd{display:none}}
+
+.xpfloat{position:absolute;top:30%;left:50%;transform:translateX(-50%);font-family:Fraunces;font-weight:800;font-size:2.2rem;color:var(--ok);pointer-events:none;animation:up 1s ease-out forwards;z-index:5;text-shadow:0 2px 10px var(--bg)}
+@keyframes up{from{opacity:0;transform:translate(-50%,10px) scale(.8)}20%{opacity:1}to{opacity:0;transform:translate(-50%,-70px) scale(1.1)}}
+
+/* Fin */
+#end{padding:30px 0 50px;text-align:center}
+#end h2{font-size:clamp(1.8rem,5vw,2.6rem);margin:.2em 0}
+.endgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0;text-align:left}
+@media (max-width:640px){.endgrid{grid-template-columns:repeat(2,1fr)}}
+.missed{text-align:left;margin:20px 0}
+.missed li{margin:6px 0}
+.endbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* Parcourir */
+#browse{padding:20px 0 40px}
+.search{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin-bottom:14px}
+details.bc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--pc);border-radius:12px;padding:10px 14px;margin:8px 0}
+details.bc summary{cursor:pointer;font-weight:700;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.bc summary::-webkit-details-marker{display:none}
+details.bc summary small{margin-left:auto;color:var(--muted);font-weight:600;white-space:nowrap}
+details.bc .ans{font-size:1rem;margin-top:8px}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:700;opacity:0;transition:.3s;z-index:50;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.6}}
+.hidden{display:none!important}
+@media (prefers-reduced-motion: reduce){
+  .card3d{transition:opacity .2s}.card3d.flipped{transform:none}
+  .card3d.flipped .front{visibility:hidden}.back{transform:none;visibility:hidden}.card3d.flipped .back{visibility:visible}
+  .confetti,.xpfloat{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="meander"></div>
+  <div class="wrap hbar">
+    <button class="brand" onclick="goHome()" aria-label="Accueil">
+      <div class="logo">Δ</div>
+      <div><span>Démocratie, démocraties</span><small>HGGSP · Première · Thème 1</small></div>
+    </button>
+    <div class="hstats">
+      <div class="lvl"><span class="name" id="lvlName">Métèque</span><div class="xpbar" title="Progression vers le niveau suivant"><i id="xpFill"></i></div></div>
+      <span class="pill" id="xpPill" title="Points d’expérience">✦ 0</span>
+      <span class="pill hide-sm" id="streakPill" title="Jours de révision consécutifs">🔥 0</span>
+      <button class="icon-btn" id="themeBtn" title="Changer de thème" aria-label="Changer de thème">◐</button>
+    </div>
+  </div>
+</header>
+
+<!-- ACCUEIL -->
+<main id="home" class="wrap">
+  <div class="hero">
+    <div>
+      <div class="kicker">Préparer l’évaluation finale</div>
+      <h1>Démocratie,<br>démocraties</h1>
+      <p>Retourne la carte, sois honnête avec toi-même : les cartes ratées reviennent plus souvent, celles que tu maîtrises s’espacent. Chaque bonne réponse rapporte des points.</p>
+    </div>
+    <div class="statgrid">
+      <div class="stat"><b id="stMaster">0</b><span>cartes maîtrisées</span></div>
+      <div class="stat"><b id="stDue">0</b><span>à revoir maintenant</span></div>
+      <div class="stat"><b id="stNew">0</b><span>jamais vues</span></div>
+      <div class="stat"><b id="stCombo">0</b><span>meilleur combo</span></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2>Choisir un mode</h2>
+    <div class="modes">
+      <div class="mode main" role="button" tabindex="0" onclick="startSession('session')" onkeydown="if(event.target===this&&(event.key==='Enter'||event.key===' ')){event.preventDefault();startSession('session')}">
+        <div class="tag">Recommandé · répétition espacée</div>
+        <h3>Séance d’Ecclésia</h3>
+        <p>Priorité aux cartes ratées et à revoir. Une carte ratée revient dans la même séance jusqu’à ce qu’elle soit sue.</p>
+        <div class="sizes" id="sizes" onclick="event.stopPropagation()">
+          <button data-n="10">10</button><button data-n="20">20</button><button data-n="40">40</button><button data-n="999">Tout</button>
+        </div>
+      </div>
+      <button class="mode" onclick="startSession('flash')">
+        <div class="tag">90 secondes · points ×2</div>
+        <h3>Défi Clepsydre</h3>
+        <p>Le temps de parole d’un orateur. Enchaîne le plus de cartes possible.</p>
+      </button>
+      <button class="mode" onclick="startSession('rattrapage')">
+        <div class="tag">Ciblé</div>
+        <h3>Rattrapage</h3>
+        <p>Uniquement les cartes déjà ratées et pas encore consolidées.</p>
+      </button>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Filtrer les cartes</h2>
+    <div class="filters">
+      <div class="chips" id="partChips"></div>
+      <div class="chips" id="typeChips"></div>
+      <label class="toggle"><input type="checkbox" id="invert"> Sens inversé pour les notions (on voit la définition, on retrouve le mot)</label>
+      <div><button class="btn ghost" onclick="openBrowse()">📖 Parcourir toutes les cartes</button></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Ma maîtrise du chapitre</h2>
+    <div class="parts" id="parts"></div>
+    <div class="legend">
+      <span><i style="background:var(--line)"></i>jamais vue</span>
+      <span><i style="background:var(--ko)"></i>boîte 1 · à revoir</span>
+      <span><i style="background:var(--mid)"></i>boîtes 2-3 · en cours</span>
+      <span><i style="background:var(--ok)"></i>boîtes 4-5 · maîtrisée</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Badges</h2>
+    <div class="badges" id="badges"></div>
+  </section>
+
+  <div class="foot">
+    <span>Progression enregistrée sur cet appareil et dans ce navigateur.</span>
+    <span style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" onclick="copyReport()">📋 Copier mon bilan</button>
+      <button class="btn ghost" onclick="resetAll()">Réinitialiser</button>
+    </span>
+  </div>
+</main>
+
+<!-- RÉVISION -->
+<main id="study" class="wrap hidden" style="max-width:760px">
+  <div class="sbar">
+    <button class="icon-btn" onclick="endSession(true)" title="Quitter (Échap)" aria-label="Quitter">✕</button>
+    <div class="prog"><i id="progFill"></i></div>
+    <span class="timer hidden" id="timer">90</span>
+    <span class="combo" id="combo"></span>
+  </div>
+  <div class="scene" id="scene">
+    <div class="card3d" id="card" onclick="flip()">
+      <div class="face front" id="front"></div>
+      <div class="face back" id="back"></div>
+    </div>
+  </div>
+  <button class="flipbtn" id="flipBtn" onclick="flip()">Retourner la carte <span class="kbd">Espace</span></button>
+  <div class="grades hidden" id="grades">
+    <button class="g0" onclick="grade(0)">Raté<small>revient vite</small><span class="kbd">1</span></button>
+    <button class="g1" onclick="grade(1)">Hésité<small>+4</small><span class="kbd">2</span></button>
+    <button class="g2" onclick="grade(2)">Su !<small id="g2pts">+10</small><span class="kbd">3</span></button>
+  </div>
+</main>
+
+<!-- FIN -->
+<main id="end" class="wrap hidden" style="max-width:760px"></main>
+
+<!-- PARCOURIR -->
+<main id="browse" class="wrap hidden" style="max-width:820px">
+  <div class="sbar"><button class="icon-btn" onclick="goHome()" aria-label="Retour">←</button><h2 style="margin:0;font-size:1.3rem">Toutes les cartes</h2></div>
+  <input class="search" id="search" placeholder="Rechercher : Montesquieu, 1974, illibérale, ICE…" oninput="renderBrowse()">
+  <div id="browseList"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DONNÉES — [id, partie, type, recto, verso, approfondissement]
+   Parties : intro · a1 · a2 · oec
+   Types   : Notion · Date · Citation · Acteur · Exemple · Chiffre · Analyse
+   ========================================================= */
+const RAW = [
+/* ---------- INTRODUCTION ---------- */
+["i01","intro","Notion","Définis la <em>démocratie</em>.","Régime politique dans lequel la <b>souveraineté appartient à l’ensemble des citoyens</b>, qui l’exercent directement ou par des représentants élus. Elle suppose des <b>élections libres et pluralistes</b>, l’<b>égalité devant la loi</b> et la <b>garantie des libertés</b>.","Étymologie : <em>dêmos</em> (le peuple) + <em>kratos</em> (le pouvoir). Inventée à Athènes au Ve s. av. J.-C. En composition, distingue toujours la source du pouvoir (le peuple) et ses garanties (libertés, État de droit)."],
+["i02","intro","Notion","Qu’est-ce qu’un <em>régime politique</em> ?","Ensemble des <b>règles, écrites ou non</b>, qui organisent l’exercice du pouvoir dans un État : <b>qui décide, comment, pour combien de temps et sous quel contrôle</b>.","Les quatre questions (qui ? comment ? combien de temps ? quel contrôle ?) sont une grille efficace pour comparer Athènes, la France de 1848 et la Hongrie d’Orbán."],
+["i03","intro","Notion","Qu’est-ce que la <em>souveraineté</em> ? Quelles sont ses deux conceptions ?","Pouvoir <b>suprême de décider</b>, sans autorité supérieure.<ul><li><b>Souveraineté populaire</b> (Rousseau) : elle appartient au peuple.</li><li><b>Souveraineté nationale</b> (DDHC, 1789) : elle appartient à la nation prise comme un tout.</li></ul>","La souveraineté populaire tend vers la démocratie directe ; la souveraineté nationale justifie la représentation (les élus parlent au nom de la nation entière)."],
+["i04","intro","Notion","Définis l’<em>État de droit</em>.","État dans lequel <b>tous, gouvernants comme gouvernés, sont soumis au droit</b>. Il suppose une <b>hiérarchie des normes</b>, une <b>justice indépendante</b> et un <b>contrôle de constitutionnalité</b>.","En France, ce contrôle est assuré par le Conseil constitutionnel, créé en 1958. C’est précisément ce que les régimes illibéraux attaquent en premier."],
+["i05","intro","Notion","Qu’est-ce que la <em>citoyenneté</em> ?","Appartenance <b>juridique et politique</b> à une communauté, qui donne des <b>droits</b> (voter, être élu, s’exprimer) et impose des <b>devoirs</b> (respecter la loi, participer à la vie publique).","La citoyenneté s’élargit dans le temps : réservée à une minorité à Athènes, censitaire au XIXe s., universelle masculine (1848), étendue aux femmes (1944), européenne (1992)."],
+["i06","intro","Notion","Qu’est-ce que le <em>pluralisme</em> et pourquoi est-il indispensable ?","Coexistence organisée de <b>plusieurs partis, opinions, médias et associations</b>. Sans lui, il n’y a <b>ni débat réel, ni choix, ni alternance</b> possible.","Le contrôle des médias et la marginalisation de l’opposition sont donc des indicateurs clés de recul démocratique (Hongrie, Russie)."],
+["i07","intro","Citation","Qui a défini la démocratie comme « le gouvernement du peuple, par le peuple, pour le peuple » ? Où et quand ?","<b>Abraham Lincoln</b>, dans le <b>discours de Gettysburg</b>, le <b>19 novembre 1863</b>, sur un champ de bataille de la guerre de Sécession.","La formule définit la démocratie par sa <b>source</b>, son <b>moyen</b> et sa <b>finalité</b> — pas par ses institutions. Elle est reprise à l’article 2 de la Constitution de 1958."],
+["i08","intro","Analyse","Pourquoi parle-t-on de « démocraties » au pluriel ?","Parce qu’il en existe des formes variées :<ul><li><b>directes</b> (Suisse) ou <b>représentatives</b> (France) ;</li><li><b>monarchies</b> ou <b>républiques</b> ;</li><li>démocraties <b>libérales</b> ou <b>illibérales</b>.</li></ul>","Le Royaume-Uni est une monarchie démocratique ; la Russie est une république qui n’en est pas une. La forme du régime ne suffit pas : ce sont les garanties qui comptent."],
+["i09","intro","Analyse","Quelle est la problématique du chapitre ?","<b>Comment la démocratie se pense-t-elle, comment progresse-t-elle, recule-t-elle et résiste-t-elle, de l’Antiquité à nos jours ?</b>","Quatre verbes = quatre temps d’un plan possible : penser (Athènes, Lumières), progresser (vagues), reculer (effondrements, illibéralisme), résister (contre-pouvoirs, UE)."],
+["i10","intro","Chiffre","Qu’est-ce que le <em>Democracy Index</em> ? Combien de pays, combien d’indicateurs ?","Classement annuel de <b>The Economist Intelligence Unit</b> : <b>167 pays</b> évalués selon <b>60 indicateurs</b>.","Cinq catégories : processus électoral et pluralisme, libertés civiles, fonctionnement du gouvernement, participation politique, culture politique. Il classe les pays en démocraties pleines, imparfaites, régimes hybrides, autoritaires."],
+["i11","intro","Chiffre","Quelle est la moyenne mondiale du Democracy Index en 2025 ?","<b>5,19 / 10</b>, en très légère hausse après <b>huit années de recul continu</b>.","Utile pour illustrer la « récession démocratique » des années 2010 — et nuancer : la tendance n’est pas à sens unique."],
+["i12","intro","Chiffre","Combien de pays étaient démocratiques en 2024 ? Quelle part de la population mondiale vit en démocratie ?","<b>71 pays</b>, dont <b>25 démocraties pleines</b>. <b>45 %</b> de la population mondiale vit en démocratie, <b>39 %</b> sous un régime autoritaire.","Moins de la moitié de l’humanité vit en démocratie : la démocratie n’est pas la norme mondiale."],
+["i13","intro","Chiffre","Quel est le rang des États-Unis au Democracy Index 2025 ? Et la catégorie de la France ?","États-Unis : <b>34e rang (7,65/10)</b>, contre le <b>28e</b> un an plus tôt. La France est classée <b>« démocratie imparfaite »</b>.","Même les démocraties anciennes peuvent reculer : exemple à mobiliser dans l’axe 2 (B et C)."],
+["i14","intro","Date","Quels sont les quatre repères à savoir replacer pour l’évaluation ?","<ul><li><b>Ve s. av. J.-C.</b> : Athènes</li><li><b>1748 et 1789</b> : Lumières et Révolution</li><li><b>1974-1994</b> : troisième vague de démocratisation</li><li><b>Années 2010-2020</b> : récession démocratique et démocraties illibérales</li></ul>","Ces quatre repères structurent toute composition sur le thème : ils correspondent à invention → refondation → diffusion → érosion."],
+["i15","intro","Analyse","Quelles sont les trois idées de la conclusion du chapitre ?","<ul><li>Une <b>construction longue et discontinue</b> (Athènes, Lumières, vagues).</li><li>Une <b>conquête réversible</b> (Chili 1973, illibéralisme… mais Hongrie 2026).</li><li>Un régime qui ne survit que par <b>ce qui le défend au quotidien</b> (justice, presse, société civile, citoyens informés).</li></ul>","Parfait pour structurer la conclusion de la composition, avec une ouverture sur l’UE : « une démocratie sans peuple unique, qui tire sa force de son droit »."],
+
+/* ---------- AXE 1 · A — ATHÈNES ---------- */
+["a101","a1","Acteur","Quel rôle joue Solon dans l’histoire de la démocratie athénienne ?","Au <b>début du VIe s. av. J.-C.</b> (vers 594), il répartit les Athéniens en <b>quatre classes selon leur richesse</b> et accorde à <b>tous les citoyens le droit de vote</b> à l’assemblée.","Solon pose des bases, mais la démocratie proprement dite naît avec Clisthène (508-507). Les droits restent alors proportionnés à la fortune."],
+["a102","a1","Date","Que se passe-t-il en 508-507 av. J.-C. ?","Les <b>réformes de Clisthène</b> : <b>naissance de la démocratie athénienne</b>.","Clisthène réorganise les citoyens en dix tribus mêlant les territoires de l’Attique et fonde l’isonomie. La Boulè compte alors 500 membres."],
+["a103","a1","Acteur","Comment Périclès renforce-t-il et restreint-il la démocratie athénienne ?","<b>Renforce</b> : il crée le <b>misthos</b>, indemnité qui permet aux plus pauvres de participer.<br><b>Restreint</b> : il limite la citoyenneté aux hommes <b>nés de père et de mère athéniens</b> (ayant fait leur service militaire).","Bon exemple de la tension démocratique : plus d’égalité entre citoyens, mais moins de citoyens. Le « siècle de Périclès » : 461-429 av. J.-C."],
+["a104","a1","Notion","Qu’est-ce que l’<em>Ecclésia</em> ?","Assemblée de <b>tous les citoyens athéniens</b>, qui <b>vote les lois et les décisions politiques</b>.","Elle se réunit sur la colline de la Pnyx. Vote à main levée ; tout citoyen peut y prendre la parole (iségorie) et proposer une loi."],
+["a105","a1","Notion","Qu’est-ce que la <em>Boulè</em> ?","Conseil de <b>500 citoyens tirés au sort</b>, qui <b>prépare l’ordre du jour de l’Ecclésia</b>.","Le tirage au sort est vu par les Athéniens comme le procédé le plus démocratique : chacun a la même chance d’exercer le pouvoir."],
+["a106","a1","Notion","Qu’est-ce que l’<em>isonomie</em> ?","<b>Égalité de tous les citoyens devant la loi</b>, principe fondateur de la démocratie athénienne.","Attention : égalité entre citoyens seulement. Femmes, métèques et esclaves en sont exclus."],
+["a107","a1","Notion","Qu’est-ce que le <em>misthos</em> ?","<b>Indemnité</b> versée aux citoyens pour compenser la <b>journée de travail perdue</b> à exercer leurs droits politiques.","Instauré par Périclès : il rend la participation des citoyens pauvres réellement possible. Ancêtre lointain de l’indemnité parlementaire."],
+["a108","a1","Notion","Qu’est-ce que l’<em>ostracisme</em> ?","Procédure permettant à l’Ecclésia d’<b>exiler pour dix ans</b> un citoyen jugé <b>menaçant pour la cité</b>.","Le nom vient de l’<em>ostrakon</em>, tesson de poterie sur lequel on inscrivait le nom. Une protection contre la tyrannie… mais aussi une arme contre des rivaux politiques."],
+["a109","a1","Notion","Qu’est-ce qu’un <em>démagogue</em> ?","Orateur qui <b>flatte les passions du peuple</b> pour obtenir son soutien, <b>au détriment de l’intérêt général</b>.","Critique ancienne de la démocratie (Platon). Lien direct avec le populisme contemporain étudié dans l’axe 2."],
+["a110","a1","Analyse","Comment fonctionne concrètement la démocratie directe athénienne ?","<ul><li>Vote <b>à main levée</b> à l’Ecclésia ;</li><li>tout citoyen peut <b>prendre la parole et proposer des lois</b> ;</li><li>magistrats et juges <b>tirés au sort pour un an</b> (après des sacrifices).</li></ul>","Exception majeure : les stratèges (chefs militaires) sont élus — ce qui avantage les grands orateurs et les familles riches."],
+["a111","a1","Analyse","Quelles sont les limites de la démocratie athénienne ?","<ul><li><b>Exclusion</b> des femmes, des métèques (étrangers) et des esclaves ;</li><li>des tirés au sort <b>ni qualifiés ni volontaires</b> ;</li><li>les fonctions suprêmes (<b>stratège</b>) reviennent aux grands orateurs.</li></ul>","Seule une minorité de la population est citoyenne. Argument indispensable pour nuancer le « modèle » athénien en composition."],
+["a112","a1","Citation","Qui a dit : « notre régime s’appelle démocratie parce qu’il sert le grand nombre et non une minorité » ? Quel piège dans ce document ?","<b>Périclès</b>, <b>oraison funèbre</b> (431 av. J.-C.), rapportée par <b>Thucydide</b>.<br>Piège : ce n’est <b>pas un compte rendu</b> mais un discours <b>reconstitué par un historien</b>, à des fins politiques.","Premier éloge connu de la démocratie ; Athènes y est présentée comme « l’école de la Grèce ». Toujours critiquer la nature du document."],
+["a113","a1","Date","Que se passe-t-il en 415 av. J.-C. et que montre cet épisode ?","L’<b>expédition de Sicile</b>, votée par l’Ecclésia, tourne au <b>désastre</b>.","Exemple classique des dangers de la démocratie directe : une assemblée emportée par les orateurs peut prendre des décisions catastrophiques."],
+["a114","a1","Date","Que se passe-t-il en 399 av. J.-C. ?","<b>Condamnation à mort de Socrate</b> par un tribunal populaire.","Pour Platon, son disciple, c’est la preuve que le peuple peut être injuste : origine d’une longue méfiance philosophique envers la démocratie."],
+["a115","a1","Date","Quand la démocratie athénienne prend-elle fin ?","En <b>322 av. J.-C.</b>","Elle aura duré environ deux siècles ; l’idée démocratique est ensuite oubliée pendant près de deux mille ans."],
+["a116","a1","Date","À quoi correspond la période 461-429 av. J.-C. ?","Au <b>« siècle de Périclès »</b> : <b>apogée</b> de la démocratie athénienne, création du <b>misthos</b>.","Période aussi de l’impérialisme athénien (ligue de Délos) : la prospérité démocratique repose en partie sur la domination d’autres cités."],
+
+/* ---------- AXE 1 · B — LUMIÈRES / XIXe ---------- */
+["a120","a1","Analyse","Que critiquent les philosophes des Lumières au XVIIIe siècle ?","La <b>monarchie absolue de droit divin</b> et la <b>société d’ordres</b> (clergé, noblesse, tiers état).","Ils ne sont pas tous démocrates : Voltaire préfère une monarchie éclairée, Montesquieu cherche l’équilibre des pouvoirs, Rousseau et Diderot vont plus loin vers la souveraineté du peuple."],
+["a121","a1","Acteur","Quelle idée John Locke apporte-t-il ? Dans quelle œuvre ?","Le droit de gouverner doit dépendre du <b>consentement des citoyens</b>. <em>Traité du gouvernement civil</em> (<b>1690</b>).","Locke fonde le libéralisme politique : des droits naturels (vie, liberté, propriété) que le pouvoir doit protéger, sous peine de légitimer la résistance."],
+["a122","a1","Acteur","Quelle idée Montesquieu défend-il ? Dans quelle œuvre et en quelle année ?","La <b>séparation des pouvoirs</b> (législatif, exécutif, judiciaire) pour éviter la tyrannie. <em>De l’esprit des lois</em>, <b>1748</b>.","Il s’inspire du modèle britannique. Cette idée structure la Constitution américaine de 1787 et l’article 16 de la DDHC."],
+["a123","a1","Citation","Complète et attribue : « Pour qu’on ne puisse abuser du pouvoir, il faut que… »","« …par la disposition des choses, <b>le pouvoir arrête le pouvoir</b>. » — <b>Montesquieu</b>, <em>De l’esprit des lois</em>, 1748.","Ce ne sont pas les bonnes intentions des gouvernants qui protègent les libertés, mais l’<b>agencement des institutions</b>. C’est le critère pour repérer les reculs démocratiques de l’axe 2."],
+["a124","a1","Acteur","Quelle idée Rousseau défend-il ? Dans quelle œuvre et en quelle année ?","La <b>souveraineté populaire</b> et la <b>volonté générale</b>. <em>Du contrat social</em>, <b>1762</b>.","Rousseau se méfie de la représentation : pour lui, la souveraineté ne se délègue pas. Il inspire la démocratie directe et le référendum."],
+["a125","a1","Notion","Qu’est-ce que la <em>volonté générale</em> chez Rousseau ?","Ce que veut <b>le peuple entier considéré comme un corps</b>, et qui vise l’<b>intérêt commun</b> — à distinguer de la simple <b>somme des intérêts particuliers</b>.","Concept ambigu : il peut fonder la démocratie… ou être revendiqué par un pouvoir qui prétend l’incarner seul (populisme)."],
+["a126","a1","Acteur","Quelle était la position de Voltaire et de Diderot ?","<b>Voltaire</b> admirait la <b>monarchie parlementaire britannique</b>. <b>Diderot</b> demandait un <b>pouvoir démocratique pour le peuple</b>.","Montre la diversité des Lumières : une critique commune de l’absolutisme, mais des solutions différentes."],
+["a127","a1","Date","Quand la Déclaration des droits de l’homme et du citoyen est-elle adoptée ? Quel principe affirme-t-elle ?","Le <b>26 août 1789</b>. Elle affirme notamment la <b>souveraineté nationale</b>, l’égalité en droits et les libertés fondamentales.","Avec la Révolution, les idées de <b>nation</b> et de <b>citoyenneté</b> s’imposent jusqu’à la chute de Napoléon (1815)."],
+["a128","a1","Date","Que représentent 1776 et 1787 dans l’histoire de la démocratie ?","<b>1776</b> : indépendance des États-Unis. <b>1787</b> : <b>Constitution américaine</b>.","Première grande constitution écrite fondée sur la séparation des pouvoirs (checks and balances) et le fédéralisme."],
+["a129","a1","Acteur","Qu’oppose Benjamin Constant en 1819 ?","La <b>« liberté des Anciens »</b> : liberté <b>politique</b>, exercée collectivement pour l’intérêt de la cité ;<br>la <b>« liberté des Modernes »</b> : liberté <b>individuelle</b> (expression, conscience…), exercée pour l’intérêt personnel.","<em>De la liberté des Anciens comparée à celle des Modernes</em>. Les Modernes préfèrent donc la représentation… avec le risque que les élus trahissent leur programme et que la minorité ne soit pas représentée."],
+["a130","a1","Acteur","Quels risques Tocqueville voit-il dans la démocratie ?","<ul><li>la <b>tyrannie de la majorité</b> ;</li><li>le <b>rejet de la démocratie par la minorité</b> ;</li><li>un peuple qui <b>abandonne les décisions</b> au gouvernement par désintérêt.</li></ul>","<em>De la démocratie en Amérique</em> (1835-1840). Il y défend aussi l’égalité des droits. Ses analyses éclairent l’abstention actuelle."],
+["a131","a1","Date","Que se passe-t-il en France en 1848 ?","Proclamation du <b>suffrage universel masculin</b> sous la <b>IIe République</b> (1848-1852).","Fin du suffrage censitaire. Le corps électoral passe d’environ 250 000 à plus de 9 millions d’hommes."],
+["a132","a1","Notion","Qu’est-ce que le <em>suffrage censitaire</em> ?","Droit de vote <b>réservé aux citoyens payant un impôt</b> (le cens) supérieur à un certain montant. Il s’oppose au <b>suffrage universel</b>.","Pratiqué en France sous la monarchie de Juillet : la démocratie représentative du XIXe siècle est longtemps une démocratie des propriétaires."],
+["a133","a1","Notion","Qu’est-ce qu’un <em>régime représentatif</em> ?","Régime dans lequel les citoyens <b>n’exercent pas eux-mêmes le pouvoir</b> mais <b>élisent des représentants</b> chargés de décider en leur nom.","Différence majeure avec Athènes : on passe du tirage au sort et de l’assemblée à l’élection de représentants."],
+["a134","a1","Notion","Qu’est-ce que le <em>libéralisme politique</em> ?","Doctrine qui fait de la <b>limitation du pouvoir de l’État</b> et de la <b>protection des libertés individuelles</b> la finalité première des institutions.","Locke, Montesquieu, Constant. À relier à la distinction démocratie libérale / illibérale."],
+["a135","a1","Notion","Qu’est-ce qu’une <em>Constitution</em> ?","<b>Loi fondamentale</b> d’un État, <b>supérieure à toutes les autres</b>, qui organise les pouvoirs publics et garantit les droits des citoyens.","Elle est au sommet de la hiérarchie des normes ; d’où l’importance du contrôle de constitutionnalité."],
+["a136","a1","Notion","Qu’est-ce que la <em>séparation des pouvoirs</em> ?","Organisation de l’État qui confie les fonctions <b>exécutive, législative et judiciaire</b> à des organes <b>distincts et indépendants</b>, afin qu’ils se <b>limitent mutuellement</b>.","Pensée par Montesquieu (1748). Sa remise en cause (justice soumise, parlement affaibli) est un signal d’alerte majeur."],
+
+/* ---------- AXE 1 · C — CONTEMPORAINE ---------- */
+["a140","a1","Analyse","Quels sont les critères <em>institutionnels</em> d’une démocratie contemporaine ?","<ul><li>élections <b>libres, régulières, pluralistes, à bulletin secret</b> ;</li><li>possibilité réelle d’<b>alternance</b> ;</li><li><b>séparation et limitation</b> des pouvoirs ;</li><li><b>justice indépendante</b> ;</li><li><b>contrôle de constitutionnalité</b>.</li></ul>","Retiens les trois familles de critères : institutionnels, de liberté, sociaux et culturels."],
+["a141","a1","Analyse","Quels sont les critères <em>de liberté</em> d’une démocratie contemporaine ?","Libertés d’<b>expression, réunion, association, manifestation</b> ; <b>liberté et pluralisme de la presse</b> ; <b>protection des minorités</b> contre la majorité ; <b>droit à la vie privée</b>.","La protection des minorités répond directement à la « tyrannie de la majorité » redoutée par Tocqueville."],
+["a142","a1","Analyse","Quels sont les critères <em>sociaux et culturels</em> d’une démocratie, et pourquoi sont-ils décisifs ?","Éducation accessible, <b>information fiable</b>, <b>société civile active</b>, faible corruption et surtout <b>acceptation du résultat des urnes et du compromis</b>.<br>Sans cette <b>culture politique</b>, les institutions ne suffisent pas.","Exemple : l’assaut du Capitole (6 janvier 2021) montre ce qui se passe quand le résultat des urnes n’est plus accepté."],
+["a143","a1","Analyse","Avec quelles autres formes la démocratie représentative se combine-t-elle aujourd’hui ?","<ul><li><b>Directe</b> : référendums, <b>votations suisses</b> plusieurs fois par an ;</li><li><b>Participative</b> : budgets participatifs, <b>Convention citoyenne pour le climat</b> (2019-2020) ;</li><li><b>Numérique</b> : consultations et pétitions en ligne.</li></ul>","Ces formes répondent à la crise de la représentation sans la remplacer : la décision finale revient presque toujours aux élus."],
+["a144","a1","Exemple","La Convention citoyenne pour le climat (France, 2019-2020) est l’exemple de quelle forme de démocratie ?","De la <b>démocratie participative</b>.","Des citoyens tirés au sort ont formulé des propositions : retour du tirage au sort athénien, mais à titre consultatif."],
+["a145","a1","Analyse","Quelles critiques adresse-t-on aujourd’hui aux démocraties représentatives ?","Montée de l’<b>abstention</b>, <b>défiance</b> envers partis et élus, <b>professionnalisation</b> de la vie politique, poids des <b>groupes d’intérêt</b> et des grands médias, sentiment que « <b>voter ne change rien</b> ».","Ces critiques nourrissent le populisme (axe 2, B3)."],
+["a146","a1","Notion","Qu’est-ce qu’une <em>démocratie libérale</em> ?","Démocratie dans laquelle le <b>pouvoir de la majorité est limité</b> par l’État de droit, une justice indépendante et des <b>droits fondamentaux garantis, y compris contre elle-même</b>.","Combine deux héritages : la souveraineté du peuple (Rousseau) et la limitation du pouvoir (Locke, Montesquieu)."],
+["a147","a1","Notion","Qu’est-ce qu’une <em>démocratie illibérale</em> ? Qui a revendiqué l’expression ?","Régime <b>issu d’élections</b> mais dans lequel les <b>contre-pouvoirs</b> (justice, presse, opposition, société civile) sont <b>affaiblis au nom de la volonté majoritaire</b>.<br>Revendiquée par <b>Viktor Orbán en 2014</b>.","Les urnes sont conservées, mais vidées de leur sens. Exemple central : la Hongrie (axe 2)."],
+["a148","a1","Notion","Qu’est-ce qu’un <em>contre-pouvoir</em> ? Donne des exemples.","Institution ou force sociale capable de <b>limiter le pouvoir exécutif</b> : parlement, justice, presse, collectivités locales, syndicats, ONG, opinion publique.","Application concrète du « pouvoir arrête le pouvoir » de Montesquieu."],
+["a149","a1","Notion","Qu’est-ce que l’<em>alternance</em> ?","<b>Passage pacifique du pouvoir</b> d’une majorité à une autre à la suite d’une élection.","C’est le <b>test le plus simple</b> de la réalité d’une démocratie. Exemple : la défaite d’Orbán reconnue en avril 2026."],
+["a150","a1","Notion","L’abstention est-elle un signe d’autoritarisme ?","<b>Non, pas en soi.</b> L’abstention (fait de ne pas voter) <b>affaiblit la légitimité des élus</b> sans être un signe d’autoritarisme.","À ne pas confondre en composition : une démocratie peut avoir une forte abstention, une dictature afficher 99 % de participation."],
+["a151","a1","Notion","Qu’est-ce qu’un <em>régime hybride</em> ?","Régime qui <b>combine des élections et des pratiques autoritaires</b>, sans être clairement l’un ou l’autre.","Catégorie utilisée par le Democracy Index, entre « démocratie imparfaite » et « régime autoritaire »."],
+["a152","a1","Citation","Qui a dit que la démocratie est « le pire des régimes, à l’exception de tous les autres » ? Quand ?","<b>Winston Churchill</b>, à la Chambre des communes, le <b>11 novembre 1947</b>.","Définition par défaut : la démocratie est défendue non pour sa perfection, mais parce que les alternatives se sont révélées pires. Utile en composition, à condition de la discuter."],
+
+/* ---------- AXE 2 · A — VAGUES ---------- */
+["a201","a2","Acteur","Quelle lecture du XXe siècle propose Samuel Huntington ? Donne les trois vagues.","Une succession de <b>vagues de démocratisation</b>, chacune suivie d’un <b>reflux</b> :<ul><li><b>1re</b> : années 1820-1920 (Europe occidentale, Amérique du Nord) ;</li><li><b>2e</b> : après 1945 (défaite des fascismes, décolonisations) ;</li><li><b>3e</b> : à partir de <b>1974</b>.</li></ul>","Politiste américain. La notion de « reflux » permet de lier progrès et reculs dans un même raisonnement."],
+["a202","a2","Date","Que se passe-t-il au Portugal le 25 avril 1974 ?","La <b>révolution des Œillets</b> met fin en une journée à <b>48 ans de dictature</b> (Estado Novo, depuis 1926). Début de la <b>troisième vague</b>.","De jeunes officiers du Mouvement des forces armées, épuisés par treize ans de guerres coloniales, renversent le régime. Presque aucune victime."],
+["a203","a2","Exemple","Après le 25 avril 1974, quelles étapes consolident la démocratie portugaise ?","<ul><li><b>25 avril 1975</b> : premières élections libres ;</li><li><b>1976</b> : nouvelle Constitution ;</li><li><b>1986</b> : entrée dans la CEE.</li></ul>","Leçon : la démocratisation ne se joue pas le jour de la révolution, mais dans <b>les dix années qui suivent</b> (consolidation)."],
+["a204","a2","Exemple","Comment l’Espagne devient-elle une démocratie ?","Mort de <b>Franco en 1975</b>, transition, <b>Constitution de 1978</b>, puis <b>échec du coup d’État du 23 février 1981</b>.","L’échec du coup d’État de 1981 marque l’ancrage démocratique : l’armée et le roi choisissent la démocratie. La Grèce des colonels tombe aussi en 1974."],
+["a205","a2","Exemple","Comment la troisième vague touche-t-elle l’Amérique latine ?","Retour à la démocratie en <b>Argentine (1983)</b>, au <b>Brésil (1985)</b> et au <b>Chili</b> après la défaite de Pinochet au <b>plébiscite du 5 octobre 1988</b>.","Au Chili, le dictateur perd le scrutin qu’il avait lui-même organisé : la démocratie revient par les urnes."],
+["a206","a2","Exemple","Comment la troisième vague touche-t-elle l’Europe de l’Est et l’Afrique ?","<b>Europe de l’Est</b> : chute du mur de Berlin (<b>9 novembre 1989</b>), dissolution de l’URSS (<b>1991</b>).<br><b>Afrique</b> : conférences nationales des années 1990, fin de l’apartheid et élection de <b>Nelson Mandela</b> (<b>1994</b>).","1974-1994 : vingt ans pour la troisième vague, du Portugal à l’Afrique du Sud — c’est le repère à retenir."],
+["a207","a2","Analyse","La démocratisation ne se mesure pas qu’au nombre de pays démocratiques. Pourquoi ?","Elle passe aussi, <b>à l’intérieur de chaque pays</b>, par l’<b>élargissement du corps électoral</b>. Le suffrage universel masculin s’impose en Europe entre <b>1848 et 1918</b>.","La démocratie est donc un <b>processus, jamais un point d’arrivée</b>."],
+["a208","a2","Date","Donne les grandes étapes du vote des femmes (5 repères dont la France).","<b>Nouvelle-Zélande 1893</b> · Finlande 1906 · Allemagne et Royaume-Uni (partiellement) 1918 · États-Unis 1920 · <b>France : ordonnance du 21 avril 1944</b>, premier vote en avril 1945 · Italie 1945 · <b>Suisse 1971</b> (niveau fédéral).","La Suisse, modèle de démocratie directe, est l’une des dernières à accorder le vote aux femmes : une démocratie peut être très participative et très exclusive."],
+["a209","a2","Date","Qu’est-ce que le Voting Rights Act de 1965 ?","Loi américaine qui rend <b>enfin effectif le vote des Afro-Américains dans le Sud</b> des États-Unis.","Le droit existait depuis 1870 (XVe amendement), mais était empêché par la ségrégation : un droit formel n’est pas un droit réel."],
+["a210","a2","Date","Quels élargissements démocratiques la France connaît-elle en 1974 et en 2000 ?","<b>1974</b> : <b>majorité à 18 ans</b>. <b>2000</b> : <b>loi sur la parité</b>.","Ces étapes montrent que la démocratisation continue dans les démocraties consolidées."],
+["a211","a2","Notion","Qu’est-ce que la <em>démocratisation</em> ?","Processus par lequel un <b>régime autoritaire évolue vers un régime démocratique</b> : libération des prisonniers politiques, légalisation des partis, élections libres, nouvelle constitution.","Trois étapes à distinguer : chute du régime → transition → consolidation."],
+["a212","a2","Notion","Distingue <em>transition</em> et <em>consolidation</em> démocratiques.","<b>Transition</b> : période souvent <b>brève et instable</b> entre la chute d’un régime autoritaire et l’installation d’institutions démocratiques.<br><b>Consolidation</b> : phase <b>plus longue</b> où la démocratie devient « <b>la seule règle du jeu concevable</b> ».","Portugal : transition 1974-1976, consolidation jusqu’à l’entrée dans la CEE (1986)."],
+["a213","a2","Notion","Qu’est-ce que la <em>société civile</em> ?","Ensemble des <b>associations, syndicats, ONG, médias et mouvements citoyens</b> qui agissent <b>en dehors de l’État et des partis</b>.","Acteur clé des transitions (Solidarność en Pologne) et de la résistance démocratique (Ukraine, Serbie, Géorgie)."],
+["a214","a2","Notion","Qu’est-ce qu’un <em>plébiscite</em> ?","Consultation par laquelle un dirigeant demande au peuple d’<b>approuver sa personne ou son maintien au pouvoir</b>, plus que le contenu d’un texte.","À distinguer du référendum. Paradoxe chilien : le plébiscite de 1988 se retourne contre Pinochet."],
+["a215","a2","Citation","Quel article de la Constitution de 1958 reprend la formule de Lincoln ? Que cela change-t-il ?","L’<b>article 2</b> : « Son principe est : gouvernement du peuple, par le peuple et pour le peuple. » (4 octobre 1958)","La formule devient du <b>droit positif</b> : non plus un idéal, mais une <b>norme juridique</b> au sommet de la hiérarchie des normes."],
+
+/* ---------- AXE 2 · B — RECULS ---------- */
+["a220","a2","Exemple","Comment la démocratie meurt-elle en Italie dans l’entre-deux-guerres ?","<b>Marche sur Rome (1922)</b>, puis <b>lois fascistissimes (1925-1926)</b> qui suppriment le pluralisme.","Mussolini est appelé au pouvoir par le roi : comme en Allemagne, la prise du pouvoir conserve une apparence légale."],
+["a221","a2","Date","Quelles sont les deux dates de l’accession de Hitler aux pleins pouvoirs en 1933 ?","<b>30 janvier 1933</b> : Hitler devient chancelier <b>légalement</b>.<br><b>23 mars 1933</b> : il obtient les <b>pleins pouvoirs</b>.","Exemple majeur d’une démocratie qui se saborde par des voies légales, en moins de deux mois."],
+["a222","a2","Exemple","Quel est le destin de la démocratie espagnole dans les années 1930 ?","<b>Guerre civile (1936-1939)</b>, puis <b>franquisme</b> jusqu’en <b>1975</b>.","Boucle avec la troisième vague : la sortie du franquisme (1975-1981) en fait partie."],
+["a223","a2","Date","Que se passe-t-il au Chili le 11 septembre 1973 ?","Le général <b>Pinochet</b> renverse <b>Salvador Allende</b>, président élu en <b>1970</b>.","Coup d’État de guerre froide, encouragé de l’extérieur (États-Unis). La démocratie revient après le plébiscite de 1988."],
+["a224","a2","Exemple","Qu’est-ce que la dictature du <em>Proceso</em> en Argentine ?","Dictature militaire (<b>1976-1983</b>) qui fait, selon les organisations de droits humains, environ <b>30 000 disparus</b>.","Retour à la démocratie en 1983 : l’Argentine est aussi un exemple de la troisième vague."],
+["a225","a2","Analyse","Quel scénario récurrent suivent les effondrements démocratiques ?","<b>Crise économique et sociale</b> → <b>polarisation extrême</b> → <b>discrédit des institutions</b> et des partis → <b>violence politique</b> → <b>conquête du pouvoir</b> (par la force ou par les urnes).","Grille utilisable pour l’Allemagne de 1933, le Chili de 1973… et pour évaluer les risques actuels."],
+["a226","a2","Notion","Qu’est-ce que la <em>récession démocratique</em> ?","Phase de <b>recul du nombre et de la qualité des démocraties</b> dans le monde, observée depuis le <b>milieu des années 2010</b>.","Le recul ne prend plus la forme du char devant le palais, mais d’une <b>érosion interne, lente et légale</b>, conduite par des dirigeants élus."],
+["a227","a2","Analyse","Quel est le mécanisme presque toujours suivi par l’érosion démocratique par les urnes ?","<ul><li>contrôle des <b>médias</b> publics puis privés ;</li><li>nomination de <b>juges</b> favorables, réforme des <b>cours constitutionnelles</b> ;</li><li><b>redécoupage électoral</b> avantageux ;</li><li>affaiblissement du <b>parlement</b> ;</li><li>mise en cause des <b>ONG, universités, minorités</b>.</li></ul>","Chaque étape attaque un contre-pouvoir : c’est l’inverse exact du « le pouvoir arrête le pouvoir »."],
+["a228","a2","Exemple","Cite deux exemples de reculs démocratiques en Turquie et en Tunisie.","<b>Turquie</b> : référendum de <b>2017</b> instaurant un régime <b>hyper-présidentiel</b> (Erdoğan).<br><b>Tunisie</b> : <b>Kaïs Saïed suspend le Parlement le 25 juillet 2021</b> et fait adopter une nouvelle Constitution en <b>2022</b>.","La Tunisie était le seul succès démocratique des printemps arabes de 2011 : recul d’autant plus marquant."],
+["a229","a2","Date","Que s’est-il passé le 6 janvier 2021 à Washington ?","L’<b>assaut du Capitole</b> : contestation violente du résultat de l’élection présidentielle.","Montre que les démocraties anciennes ne sont pas épargnées : polarisation, désinformation, refus du résultat des urnes."],
+["a230","a2","Date","Que se passe-t-il en 2011 dans le monde arabe ?","Les <b>printemps arabes</b> : espoirs démocratiques, <b>résultats contrastés</b>.","Tunisie : transition réussie puis recul en 2021 ; Égypte : retour à un régime militaire ; Syrie, Libye : guerres civiles."],
+["a231","a2","Notion","Définis le <em>populisme</em>.","<b>Style politique</b> (plus qu’une doctrine) qui oppose un <b>peuple homogène, vertueux et trahi</b> à des <b>élites corrompues</b>, et valorise un <b>chef</b> qui prétend l’incarner directement.","Il peut être de droite comme de gauche."],
+["a232","a2","Analyse","Quels sont les traits constants du populisme ?","<ul><li>simplification en <b>« eux / nous »</b> ;</li><li>appel à un <b>chef charismatique</b> incarnant seul la volonté populaire ;</li><li><b>discours émotionnel</b> sur les peurs ;</li><li>préférence pour le <b>référendum</b> contre les <b>corps intermédiaires</b>.</li></ul>","Lien avec la notion antique de démagogue."],
+["a233","a2","Analyse","Le populisme est-il antidémocratique par nature ?","<b>Non.</b> Il exprime souvent une <b>demande réelle de participation</b> mal entendue. Il <b>le devient</b> lorsqu’il <b>conteste la légitimité</b> de l’opposition, des contre-pouvoirs et du <b>résultat des élections</b>.","Nuance essentielle en composition : le populisme est à la fois <b>symptôme</b> (de la crise de la représentation) et <b>accélérateur</b> (du recul)."],
+["a234","a2","Notion","Distingue <em>autoritarisme</em> et totalitarisme.","<b>Autoritarisme</b> : pouvoir concentré et opposition réprimée, <b>sans nécessairement contrôler toute la société</b>.<br>Le totalitarisme, lui, prétend contrôler <b>tous les aspects</b> de la vie (idéologie, masse, terreur).","Ex. : l’Espagne franquiste est souvent qualifiée d’autoritaire, l’Allemagne nazie de totalitaire."],
+["a235","a2","Notion","Qu’appelle-t-on les <em>corps intermédiaires</em> ?","Institutions et organisations situées <b>entre le citoyen et l’État</b> : partis, syndicats, associations, presse, collectivités.","Leur affaiblissement est un <b>signal d’alerte</b> : le populisme veut une relation directe chef-peuple, sans intermédiaire."],
+["a236","a2","Notion","Distingue <em>désinformation</em> et <em>mésinformation</em>.","<b>Désinformation</b> : diffusion <b>intentionnelle</b> d’informations fausses pour influencer l’opinion.<br><b>Mésinformation</b> : information fausse diffusée <b>de bonne foi</b>.","Les réseaux sociaux amplifient les deux ; la désinformation peut être organisée par des États étrangers."],
+["a237","a2","Exemple","Retrace la construction de l’« État illibéral » en Hongrie (4 étapes).","<ul><li><b>2010</b> : Orbán élu avec les <b>deux tiers</b> des sièges ;</li><li><b>2011</b> : nouvelle <b>Loi fondamentale</b> ;</li><li>reprise en main des <b>médias, justice, universités, système électoral</b> ;</li><li><b>juillet 2014</b> : revendication d’un « État illibéral ».</li></ul>","L’UE déclenche l’article 7 contre la Hongrie en <b>2018</b> puis gèle une partie des fonds européens."],
+["a238","a2","Date","Que se passe-t-il en Hongrie le 12 avril 2026 ?","Le parti <b>Tisza de Péter Magyar</b> remporte les législatives (≈ <b>53 %</b>, <b>138 sièges sur 199</b>, participation record ≈ <b>80 %</b>). <b>Orbán reconnaît sa défaite</b> après seize ans.","Leçon : un recul démocratique peut s’installer durablement par les urnes, mais il <b>n’est pas nécessairement irréversible</b>."],
+
+/* ---------- AXE 2 · C — RÉSISTER ---------- */
+["a240","a2","Analyse","Par quelles institutions passe la résistance démocratique ?","<b>Cours constitutionnelles et juges</b> qui annulent des décisions, <b>parlements</b> qui contrôlent l’exécutif, <b>collectivités locales ou États fédérés</b> aux compétences propres, <b>commissions électorales indépendantes</b>.","Ce sont les contre-pouvoirs institutionnels : premiers remparts."],
+["a241","a2","Analyse","Par quels acteurs de la société passe la résistance démocratique ?","<b>Presse d’investigation</b>, <b>ONG</b> (Amnesty International, Reporters sans frontières, Freedom House), universités, syndicats, avocats, et <b>mobilisations citoyennes</b> (Géorgie, Serbie, Népal en 2025).","La rue reste un <b>dernier recours</b> quand les urnes sont confisquées."],
+["a242","a2","Exemple","Quelle question pose la situation des États-Unis depuis 2025 ?","Non pas la disparition des élections, mais la <b>solidité des contre-pouvoirs</b> (tribunaux fédéraux, États fédérés, presse, universités, fonction publique) face à un <b>exécutif qui en conteste la légitimité</b>.","Premier test électoral d’ampleur : les <b>midterms de novembre 2026</b>. Democracy Index : <b>7,85 → 7,65</b> (2024-2025), toujours dans la catégorie des démocraties."],
+["a243","a2","Exemple","Pourquoi l’Ukraine n’organise-t-elle pas d’élection nationale ?","La <b>loi martiale</b>, instaurée le <b>24 février 2022</b> et prolongée tous les 90 jours par la Rada, <b>interdit constitutionnellement</b> toute élection nationale. Le mandat de <b>Zelensky a expiré en mai 2024</b>.","Voter en guerre (réfugiés, soldats au front, territoires occupés) risquerait de fracturer le pays ; ne pas voter crée un <b>déficit de légitimité</b> exploité par Moscou."],
+["a244","a2","Analyse","Quel dilemme démocratique l’Ukraine illustre-t-elle ?","Deux exigences démocratiques s’opposent : la <b>régularité du mandat</b> et la <b>sincérité du vote</b>, impossible à garantir sous les bombes.","Mais la guerre a renforcé d’autres traits : société civile, médias indépendants, contrôle de la corruption. Une démocratie en guerre est « <b>suspendue à la paix</b> »."],
+["a245","a2","Citation","Que dit l’article 21 de la Déclaration universelle des droits de l’homme ? Quand est-elle adoptée ?","« La <b>volonté du peuple</b> est le fondement de l’autorité des pouvoirs publics. » — DUDH, <b>10 décembre 1948</b>.","Adoptée trois ans après la découverte des camps nazis : la démocratie devient un <b>droit universel</b>, non un choix culturel."],
+
+/* ---------- OEC — UNION EUROPÉENNE ---------- */
+["o01","oec","Analyse","Quelle est la problématique de l’objet d’étude conclusif ?","<b>Comment la démocratie s’incarne-t-elle dans l’Union européenne ?</b>","Plan possible : une démocratie supranationale inédite (A) / une démocratie contestée mais garante de l’État de droit (B)."],
+["o02","oec","Acteur","Quelle est la particularité du Parlement européen ? Combien de députés ?","Seule <b>assemblée supranationale au monde élue au suffrage universel direct</b>, depuis <b>1979</b>. <b>720 députés</b> depuis 2024, élus pour cinq ans.","Il vote les lois et le budget, contrôle la Commission, l’investit et peut la censurer. Il siège à Strasbourg."],
+["o03","oec","Acteur","Distingue le Conseil de l’UE et le Conseil européen.","<b>Conseil de l’UE</b> : <b>ministres des 27 États</b> ; représente les États et <b>colégifère</b> à égalité avec le Parlement.<br><b>Conseil européen</b> : <b>chefs d’État et de gouvernement</b> ; fixe les <b>grandes orientations</b>.","Piège classique ! Et ne pas confondre avec le Conseil de l’Europe (Strasbourg, CEDH), qui n’est pas une institution de l’UE."],
+["o04","oec","Acteur","Quel est le rôle de la Commission européenne ?","<b>Un commissaire par État</b> ; elle détient le <b>monopole de la proposition des textes</b> et veille à leur application.","Critique : elle n’est pas élue directement. Mais elle est proposée par les États et investie (et censurable) par le Parlement."],
+["o05","oec","Acteur","Quel est le rôle de la CJUE ?","La <b>Cour de justice de l’Union européenne</b> fait respecter le droit européen, <b>y compris contre les États</b>.","Elle siège à Luxembourg. Les recours devant la CJUE sont un instrument de défense de l’État de droit (Pologne, Hongrie)."],
+["o06","oec","Date","Quand la Charte des droits fondamentaux est-elle proclamée, puis rendue contraignante ?","Proclamée en <b>2000</b>, contraignante depuis <b>2009</b> (traité de Lisbonne).","Elle protège les citoyens européens face aux institutions de l’UE et aux États quand ils appliquent le droit européen."],
+["o07","oec","Notion","Quand et par quel traité la citoyenneté européenne est-elle créée ? Quels droits donne-t-elle ?","Par le <b>traité de Maastricht (1992)</b>. Elle <b>s’ajoute</b> à la citoyenneté nationale et donne le droit de <b>voter aux municipales et européennes</b> dans son pays de résidence, de <b>pétitionner</b> et de lancer une <b>initiative citoyenne européenne</b>.","Un Italien vivant à Voiron peut voter aux municipales de Voiron."],
+["o08","oec","Exemple","Retrace le parcours de la directive « droit à la réparation ».","<ul><li><b>Mars 2023</b> : proposition de la Commission ;</li><li><b>2023-2024</b> : amendements du Parlement, négociation avec le Conseil (<b>codécision</b>) ;</li><li><b>13 juin 2024</b> : adoption de la directive (UE) 2024/1799 ;</li><li><b>avant le 31 juillet 2026</b> : transposition par chaque État.</li></ul>","C’est la chaîne démocratique européenne : du bulletin de vote au droit du consommateur, jusque chez le réparateur de Voiron."],
+["o09","oec","Notion","Distingue <em>supranational</em> et <em>intergouvernemental</em>.","<b>Supranational</b> : au-dessus des États, peut leur <b>imposer des décisions</b>.<br><b>Intergouvernemental</b> : chaque État garde un <b>droit de veto</b>.","Le Parlement et la Commission sont supranationaux ; le Conseil européen et l’unanimité relèvent de l’intergouvernemental."],
+["o10","oec","Notion","Distingue <em>directive</em> et <em>règlement</em>.","<b>Directive</b> : fixe un <b>objectif obligatoire</b>, laisse aux États le <b>choix des moyens</b> ; doit être <b>transposée</b>.<br><b>Règlement</b> : s’applique <b>directement et de la même façon</b> partout.","Le droit à la réparation est une directive : chaque État a jusqu’au 31 juillet 2026 pour la transposer."],
+["o11","oec","Notion","Qu’est-ce que la <em>procédure législative ordinaire</em> (codécision) ?","Procédure normale d’adoption des lois européennes : le <b>Parlement européen et le Conseil de l’UE décident à égalité</b>, sur <b>proposition de la Commission</b>.","Les deux institutions doivent s’accorder sur un texte identique, sinon le projet tombe. Elle associe la légitimité des citoyens (Parlement) et des États (Conseil)."],
+["o12","oec","Notion","Qu’est-ce que le principe de <em>subsidiarité</em> ?","L’Union <b>n’intervient que si l’action des États seuls serait moins efficace</b>.","Il vise à <b>rapprocher la décision des citoyens</b> : une réponse partielle au reproche d’éloignement."],
+["o13","oec","Notion","Qu’est-ce que l’<em>initiative citoyenne européenne</em> (ICE) ? Quel seuil ?","Droit pour <b>un million de citoyens</b> issus d’<b>au moins sept États</b> membres de demander à la Commission de proposer une loi.","Outil de démocratie participative à l’échelle d’un continent. Limite : la Commission n’est jamais obligée de légiférer."],
+["o14","oec","Notion","Qu’est-ce que le <em>déficit démocratique</em> ?","Critique selon laquelle les décisions européennes seraient <b>trop éloignées des citoyens</b> et <b>insuffisamment contrôlées par des élus</b>.","Formule à utiliser avec ses deux faces en composition : critique fondée, mais à nuancer (Parlement élu, codécision, ICE)."],
+["o15","oec","Chiffre","Donne les chiffres-clés de l’UE : États, habitants, langues.","<b>27 États membres</b>, environ <b>450 millions d’habitants</b>, <b>24 langues officielles</b> (tout texte adopté est traduit dans chacune).","Le multilinguisme est une condition démocratique : chaque citoyen doit pouvoir lire la loi qui s’applique à lui."],
+["o16","oec","Chiffre","Quelle a été la participation aux élections européennes de juin 2024 ?","<b>Un peu plus de 50 %</b> : le taux le plus élevé <b>depuis 1994</b>.","À nuancer : près d’un électeur sur deux ne vote toujours pas, et les campagnes restent très nationales."],
+["o17","oec","Analyse","Quelles sont les quatre grandes critiques adressées à l’UE sur le plan démocratique ?","<ul><li><b>Éloignement et complexité</b> : qui décide quoi ?</li><li>une <b>Commission non élue directement</b> ;</li><li>le poids des États et la <b>règle de l’unanimité</b> ;</li><li><b>abstention</b> et <b>nationalisation des campagnes</b>.</li></ul>","Une démocratie suppose que l’on sache qui est responsable de quoi, pour pouvoir le sanctionner."],
+["o18","oec","Exemple","Donne un exemple des effets de la règle de l’unanimité dans l’UE.","La <b>Hongrie</b> a bloqué pendant des mois des décisions d’<b>aide à l’Ukraine</b>, dont un <b>prêt de 90 milliards d’euros</b>.","L’unanimité s’applique dans des domaines majeurs : fiscalité, politique étrangère, élargissement. Un seul État peut tout bloquer."],
+["o19","oec","Citation","Que dit l’article 2 du traité sur l’Union européenne ? Quelle est sa portée ?","L’Union est fondée sur le respect de la <b>dignité humaine</b>, de la <b>liberté</b>, de la <b>démocratie</b>, de l’<b>égalité</b>, de l’<b>État de droit</b> et des <b>droits de l’homme</b>.","Ce n’est pas une déclaration d’intention : c’est la <b>base juridique</b> de l’article 7 et du gel des fonds. La démocratie est une <b>condition d’appartenance</b>."],
+["o20","oec","Date","Que sont les critères de Copenhague (1993) ?","Les conditions d’<b>adhésion</b> à l’UE, dont le respect de la <b>démocratie</b>, de l’<b>État de droit</b> et des droits fondamentaux.","Ils sont aussi, implicitement, des conditions de maintien : d’où l’article 7."],
+["o21","oec","Analyse","Qu’est-ce que la procédure de l’article 7 ? Contre qui a-t-elle été déclenchée ? Pourquoi est-elle presque inapplicable ?","Procédure de sanction d’un État qui viole les valeurs de l’article 2. Déclenchée contre la <b>Pologne (2017)</b> et la <b>Hongrie (2018)</b>.<br>Sanctionner exige l’<b>unanimité des autres États</b> : deux États qui se soutiennent suffisent à la bloquer.","D’où l’invention d’un outil plus efficace en 2021 : la conditionnalité budgétaire."],
+["o22","oec","Notion","Qu’est-ce que le mécanisme de conditionnalité budgétaire (2021) ?","Il permet de <b>suspendre le versement de fonds européens</b> à un État qui <b>viole l’État de droit</b>.","Utilisé contre la Hongrie : l’argent devient un levier démocratique plus efficace que l’article 7."],
+["o23","oec","Analyse","En quoi l’ancrage européen a-t-il consolidé les jeunes démocraties ?","Il a consolidé la <b>Grèce, l’Espagne et le Portugal</b> dans les années 1980, puis les <b>pays d’Europe centrale et orientale</b> lors de l’élargissement de <b>2004</b>.","L’UE agit moins comme un <b>gendarme</b> que comme un <b>cadre</b> : elle rend le retour en arrière coûteux."],
+["o24","oec","Exemple","Qu’est-ce que l’initiative « Right2Water » (2013) ? Que montre-t-elle ?","<b>Première ICE</b> à atteindre le seuil : plus de <b>1,6 million</b> de signatures pour faire reconnaître l’<b>accès à l’eau</b> comme un droit. La révision de la directive sur l’eau potable (<b>2020</b>) en reprend plusieurs exigences.","Montre la réalité de l’outil… et sa limite : la Commission n’est jamais obligée de légiférer."],
+["o25","oec","Date","Associe chaque date à un événement : 1957 · 1979 · 1992 · 2004 · 2012.","<b>1957</b> : traité de Rome (CEE) · <b>1979</b> : 1re élection du Parlement européen au suffrage universel direct · <b>1992</b> : Maastricht, citoyenneté européenne · <b>2004</b> : élargissement à dix États, dont huit ex-communistes · <b>2012</b> : prix Nobel de la paix à l’UE.","Ajoute 2000/2009 (Charte, Lisbonne) et juin 2024 (720 députés, participation > 50 %)."],
+["o26","oec","Analyse","Pourquoi dit-on que l’UE est « une démocratie sans peuple unique, qui tire sa force de son droit » ?","Il n’existe pas de <b>peuple européen</b> homogène (27 nations, 24 langues), mais une <b>communauté de droit</b> : traités, Charte, CJUE, valeurs de l’article 2.","C’est sa forme la plus <b>originale</b> et la plus <b>fragile</b> : idéale pour une ouverture de conclusion."]
+];
+
+const PARTS = {
+  intro:{label:"Introduction & repères", short:"Intro", color:"var(--c-intro)"},
+  a1:{label:"Axe 1 · Penser la démocratie", short:"Axe 1", color:"var(--c-a1)"},
+  a2:{label:"Axe 2 · Avancées et reculs", short:"Axe 2", color:"var(--c-a2)"},
+  oec:{label:"OEC · L’UE et la démocratie", short:"OEC", color:"var(--c-oec)"}
+};
+const TYPES = ["Notion","Date","Citation","Acteur","Exemple","Chiffre","Analyse"];
+const CARDS = RAW.map(([id,part,type,front,back,deep])=>({id,part,type,front,back,deep}));
+const BYID = Object.fromEntries(CARDS.map(c=>[c.id,c]));
+
+/* ---------- Niveaux & badges ---------- */
+const LEVELS = [[0,"Métèque"],[150,"Citoyen"],[400,"Bouleute"],[800,"Prytane"],[1400,"Archonte"],[2200,"Stratège"],[3200,"Périclès"],[4500,"Gardien de la Constitution"]];
+const mastered = c => (S.cards[c.id]||{}).box>=4;
+const partDone = p => CARDS.filter(c=>c.part===p).every(mastered);
+const BADGES = [
+  {id:"first",e:"🏛️",n:"Premier pas",d:"Réviser une première carte",t:()=>S.totalSeen>=1},
+  {id:"c10",e:"🔥",n:"Orateur",d:"Combo de 10",t:()=>S.bestCombo>=10},
+  {id:"c25",e:"⚡",n:"Démosthène",d:"Combo de 25",t:()=>S.bestCombo>=25},
+  {id:"m25",e:"📜",n:"Isonomie",d:"25 cartes maîtrisées",t:()=>CARDS.filter(mastered).length>=25},
+  {id:"m60",e:"🗳️",n:"Bouleute",d:"60 cartes maîtrisées",t:()=>CARDS.filter(mastered).length>=60},
+  {id:"intro",e:"🧭",n:"Boussole",d:"Introduction maîtrisée",t:()=>partDone("intro")},
+  {id:"a1",e:"🏺",n:"Pnyx",d:"Axe 1 maîtrisé",t:()=>partDone("a1")},
+  {id:"a2",e:"🌹",n:"Œillet",d:"Axe 2 maîtrisé",t:()=>partDone("a2")},
+  {id:"oec",e:"🇪🇺",n:"Strasbourg",d:"OEC maîtrisé",t:()=>partDone("oec")},
+  {id:"all",e:"🏆",n:"Constitution",d:"Toutes les cartes maîtrisées",t:()=>CARDS.every(mastered)},
+  {id:"flash15",e:"⏳",n:"Clepsydre",d:"15 « Su » en un défi",t:()=>S.flashBest>=15},
+  {id:"s3",e:"📅",n:"Assidu",d:"3 jours de suite",t:()=>S.streak>=3},
+  {id:"s7",e:"🦉",n:"Chouette d’Athéna",d:"7 jours de suite",t:()=>S.streak>=7}
+];
+
+/* ---------- Stockage ---------- */
+const KEY = "hggsp1-t1-democratie-v1";
+const DAY = 86400000;
+const INTERVAL = {1:0, 2:1*DAY, 3:2*DAY, 4:4*DAY, 5:8*DAY};
+function fresh(){return {cards:{},xp:0,bestCombo:0,streak:0,lastDay:null,badges:[],flashBest:0,totalSeen:0,size:20,theme:null}}
+let S = fresh();
+try{const s=JSON.parse(localStorage.getItem(KEY)); if(s) S=Object.assign(fresh(),s);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const cs = id => S.cards[id] || (S.cards[id]={box:0,due:0,seen:0,ok:0,ko:0});
+
+/* ---------- Filtres ---------- */
+let fParts = new Set(Object.keys(PARTS)), fTypes = new Set(TYPES);
+const filtered = () => CARDS.filter(c=>fParts.has(c.part)&&fTypes.has(c.type));
+
+/* ---------- Utilitaires ---------- */
+const $ = s => document.querySelector(s);
+const shuffle = a => {for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const dayStr = d => { const x=new Date(d); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); };
+function toast(msg,ms=2400){const t=$("#toast");t.innerHTML=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),ms)}
+function show(id){["home","study","end","browse"].forEach(x=>$("#"+x).classList.toggle("hidden",x!==id));window.scrollTo(0,0)}
+function levelOf(xp){let i=0;LEVELS.forEach((l,k)=>{if(xp>=l[0])i=k});return i}
+function confetti(n=60){const cols=["var(--gold)","var(--terra)","var(--aegean)","var(--ok)","var(--eu)"];for(let i=0;i<n;i++){const s=document.createElement("i");s.className="confetti";s.style.left=Math.random()*100+"vw";s.style.background=cols[i%cols.length];s.style.animationDuration=(1.6+Math.random()*1.8)+"s";s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),4000)}}
+
+/* ---------- Thème ---------- */
+function applyTheme(){ if(S.theme) document.documentElement.setAttribute("data-theme",S.theme); else document.documentElement.removeAttribute("data-theme"); }
+$("#themeBtn").onclick=()=>{const dark = S.theme ? S.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches; S.theme = dark?"light":"dark"; applyTheme(); save();};
+applyTheme();
+
+/* ---------- En-tête ---------- */
+function renderHeader(){
+  const i=levelOf(S.xp), cur=LEVELS[i][0], nxt=LEVELS[i+1]?LEVELS[i+1][0]:null;
+  $("#lvlName").textContent=LEVELS[i][1];
+  $("#xpFill").style.width = nxt ? ((S.xp-cur)/(nxt-cur)*100)+"%" : "100%";
+  $("#xpPill").textContent="✦ "+S.xp;
+  const alive = S.lastDay===dayStr(Date.now()) || S.lastDay===dayStr(Date.now()-DAY);
+  $("#streakPill").textContent="🔥 "+(alive?S.streak:0);
+}
+
+/* ---------- Accueil ---------- */
+function renderHome(){
+  renderHeader();
+  const now=Date.now();
+  $("#stMaster").textContent=CARDS.filter(mastered).length+" / "+CARDS.length;
+  $("#stDue").textContent=CARDS.filter(c=>{const s=S.cards[c.id];return s&&s.box>0&&s.due<=now}).length;
+  $("#stNew").textContent=CARDS.filter(c=>!S.cards[c.id]||!S.cards[c.id].box).length;
+  $("#stCombo").textContent=S.bestCombo;
+
+  document.querySelectorAll("#sizes button").forEach(b=>{b.classList.toggle("on",+b.dataset.n===S.size);b.onclick=()=>{S.size=+b.dataset.n;save();renderHome()}});
+
+  $("#partChips").innerHTML=Object.entries(PARTS).map(([k,p])=>`<button class="chip ${fParts.has(k)?"on":""}" data-p="${k}"><span class="dot" style="background:${p.color}"></span>${p.short}</button>`).join("");
+  $("#partChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{const k=b.dataset.p; fParts.has(k)&&fParts.size>1?fParts.delete(k):fParts.add(k); renderHome()});
+  $("#typeChips").innerHTML=TYPES.map(t=>`<button class="chip ${fTypes.has(t)?"on":""}" data-t="${t}">${t}s <small style="opacity:.6">${CARDS.filter(c=>c.type===t&&fParts.has(c.part)).length}</small></button>`).join("");
+  $("#typeChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{const t=b.dataset.t; fTypes.has(t)&&fTypes.size>1?fTypes.delete(t):fTypes.add(t); renderHome()});
+
+  $("#parts").innerHTML=Object.entries(PARTS).map(([k,p])=>{
+    const cs_=CARDS.filter(c=>c.part===k), n=cs_.length;
+    const cnt=[0,0,0,0]; cs_.forEach(c=>{const b=(S.cards[c.id]||{}).box||0; cnt[b===0?0:b===1?1:b<=3?2:3]++});
+    const pct=Math.round(cnt[3]/n*100);
+    return `<div class="part" style="--pc:${p.color}"><div class="top"><span>${p.label}</span><span>${pct} % · ${n} cartes</span></div>
+      <div class="boxes"><i style="width:${cnt[3]/n*100}%;background:var(--ok)"></i><i style="width:${cnt[2]/n*100}%;background:var(--mid)"></i><i style="width:${cnt[1]/n*100}%;background:var(--ko)"></i><i style="width:${cnt[0]/n*100}%;background:var(--line)"></i></div></div>`;
+  }).join("");
+
+  $("#badges").innerHTML=BADGES.map(b=>`<div class="badge ${S.badges.includes(b.id)?"got":""}"><div class="e">${b.e}</div><b>${b.n}</b><small>${b.d}</small></div>`).join("");
+}
+function goHome(){ if(sess) endSession(true); else { show("home"); renderHome(); } }
+
+/* ---------- Séances ---------- */
+let sess=null, timerH=null;
+function pickSession(pool,n){
+  const now=Date.now();
+  const due=[], rest=[];
+  pool.forEach(c=>{const s=S.cards[c.id]; (!s||!s.box||s.due<=now?due:rest).push(c)});
+  const pr = c => {const s=S.cards[c.id]; if(!s||!s.box) return 1.5; return s.box;}; // ratées (boîte 1) d’abord, puis nouvelles
+  shuffle(due).sort((a,b)=>pr(a)-pr(b));
+  shuffle(rest).sort((a,b)=>(S.cards[a.id].box-S.cards[b.id].box)||(S.cards[a.id].due-S.cards[b.id].due));
+  return shuffle(due.concat(rest).slice(0,n));
+}
+function startSession(mode){
+  const pool=filtered();
+  let list;
+  if(mode==="rattrapage"){
+    list=pool.filter(c=>{const s=S.cards[c.id];return s&&s.ko>0&&s.box<=2});
+    if(!list.length) return toast("Aucune carte ratée à rattraper avec ces filtres. Bravo ! 🎉");
+    list=shuffle(list).slice(0,S.size);
+  } else if(mode==="flash"){ list=shuffle(pool.slice()); }
+  else list=pickSession(pool,S.size);
+  if(!list.length) return toast("Aucune carte avec ces filtres.");
+  sess={mode,queue:list.map(c=>c.id),pool:pool.map(c=>c.id),done:0,ok:0,mid:0,ko:0,xp:0,combo:0,maxCombo:0,tries:{},missed:new Set(),flipped:false,lvlStart:levelOf(S.xp)};
+  show("study");
+  $("#timer").classList.toggle("hidden",mode!=="flash");
+  if(mode==="flash"){ sess.endAt=Date.now()+90000; tick(); timerH=setInterval(tick,250); }
+  renderCard(true);
+}
+function tick(){
+  const left=Math.max(0,Math.ceil((sess.endAt-Date.now())/1000));
+  $("#timer").textContent=left+" s"; $("#timer").classList.toggle("low",left<=15);
+  if(left<=0){clearInterval(timerH);timerH=null;endSession(false)}
+}
+function renderCard(first){
+  if(!sess.queue.length){
+    if(sess.mode==="flash"){ sess.queue=shuffle(sess.pool.slice()); } else return endSession(false);
+  }
+  const c=BYID[sess.queue[0]], st=S.cards[c.id]||{box:0}, p=PARTS[c.part];
+  const inv = $("#invert").checked && c.type==="Notion";
+  const card=$("#card");
+  card.classList.add("noanim"); card.classList.remove("flipped"); void card.offsetWidth;
+  sess.flipped=false;
+  card.style.setProperty("--pc",p.color);
+  const boxTxt = st.box ? "Boîte "+st.box+"/5" : "Nouvelle";
+  const tag = `<div class="ctag"><span class="p">${p.short}</span>·<span>${c.type}</span><span class="box">${sess.tries[c.id]?"↻ Revient · ":""}${boxTxt}</span></div>`;
+  const plain = c.front.replace(/<[^>]+>/g,"");
+  const qFront = inv ? `<div class="q" style="font-size:clamp(1.1rem,2.6vw,1.4rem);font-weight:500">${c.back}</div><div class="hint">Quelle est cette notion ?</div>` : `<div class="q">${c.front}</div><div class="hint">Formule ta réponse dans ta tête (ou à voix haute), puis retourne.</div>`;
+  const backAns = inv ? `<div class="q" style="padding:14px 0 0;margin:0">${(c.front.match(/<em>(.*?)<\/em>/)||[null,plain])[1]}</div><div class="ans">${c.back}</div>` : `<div class="qrecall">${c.front}</div><div class="ans">${c.back}</div>`;
+  $("#front").innerHTML = tag + qFront;
+  $("#back").innerHTML = tag + backAns + (c.deep?`<div class="deep"><h4>Pour aller plus loin</h4>${c.deep}</div>`:"");
+  requestAnimationFrame(()=>card.classList.remove("noanim"));
+  $("#flipBtn").classList.remove("hidden"); $("#grades").classList.add("hidden");
+  const total = sess.mode==="flash" ? null : sess.done+sess.queue.length;
+  $("#progFill").style.width = sess.mode==="flash" ? ((90000-(sess.endAt-Date.now()))/900)+"%" : (sess.done/total*100)+"%";
+  updateCombo();
+  const nextPts=(10+Math.min(sess.combo,10))*(sess.mode==="flash"?2:1);
+  $("#g2pts").textContent="+"+(sess.tries[c.id]?Math.round(nextPts/2):nextPts);
+  $("#grades .g1 small").textContent="+"+(4*(sess.mode==="flash"?2:1));
+}
+function flip(){
+  if(!sess) return;
+  const card=$("#card");
+  if(sess.flipped){ card.classList.toggle("flipped"); return; }
+  sess.flipped=true; card.classList.add("flipped");
+  $("#flipBtn").classList.add("hidden"); $("#grades").classList.remove("hidden");
+}
+function updateCombo(pop){
+  const el=$("#combo"); el.textContent = sess.combo>=2 ? "×"+sess.combo+" combo" : "";
+  if(pop){el.classList.add("pop");setTimeout(()=>el.classList.remove("pop"),180)}
+}
+function floatXP(n,color){
+  const f=document.createElement("div"); f.className="xpfloat"; f.textContent=n>0?"+"+n:"✗"; if(color) f.style.color=color;
+  $("#scene").appendChild(f); setTimeout(()=>f.remove(),1000);
+}
+function grade(g){
+  if(!sess||!sess.flipped) return;
+  const id=sess.queue.shift(), st=cs(id), now=Date.now();
+  const retry=!!sess.tries[id], mult=sess.mode==="flash"?2:1, reinsert=sess.mode!=="flash";
+  st.seen++; S.totalSeen++;
+  let pts=0;
+  if(g===2){
+    sess.combo++; pts=(10+Math.min(sess.combo-1,10))*mult; if(retry) pts=Math.round(pts/2);
+    st.ok++; sess.ok++;
+    if(!retry) st.box=Math.max(2,Math.min(5,st.box+1)); else if(st.box<=1) st.box=2;
+    floatXP(pts);
+  } else if(g===1){
+    pts=4*mult; sess.mid++; if(st.box<1) st.box=1; if(st.box>3) st.box=3;
+    if(reinsert && !sess.tries[id]){ sess.queue.splice(Math.min(6,sess.queue.length),0,id); }
+    sess.tries[id]=(sess.tries[id]||0)+1;
+    floatXP(pts,"var(--mid)");
+  } else {
+    sess.combo=0; st.box=1; st.ko++; sess.ko++; sess.missed.add(id);
+    if(reinsert){ sess.queue.splice(Math.min(3,sess.queue.length),0,id); }
+    sess.tries[id]=(sess.tries[id]||0)+1;
+    floatXP(0,"var(--ko)");
+  }
+  st.due = now + INTERVAL[st.box||1];
+  if(g!==1 || !reinsert) sess.done++; else if(sess.tries[id]>1) sess.done++;
+  sess.xp+=pts; S.xp+=pts;
+  sess.maxCombo=Math.max(sess.maxCombo,sess.combo); S.bestCombo=Math.max(S.bestCombo,sess.combo);
+  if(sess.mode==="flash") S.flashBest=Math.max(S.flashBest,sess.ok);
+  // série de jours
+  const today=dayStr(now);
+  if(S.lastDay!==today){ S.streak = S.lastDay===dayStr(now-DAY) ? S.streak+1 : 1; S.lastDay=today; }
+  if([5,10,15,20,25].includes(sess.combo)) toast("🔥 Combo ×"+sess.combo+" !",1400);
+  updateCombo(g===2);
+  checkBadges(); save(); renderHeader();
+  setTimeout(()=>sess&&renderCard(),g===2?260:320);
+}
+function checkBadges(){
+  BADGES.forEach(b=>{ if(!S.badges.includes(b.id) && b.t()){ S.badges.push(b.id); toast(`${b.e} Badge débloqué : <b>${b.n}</b>`,3000); }});
+  const lv=levelOf(S.xp); if(sess && lv>sess.lvlStart){ sess.lvlStart=lv; setTimeout(()=>{toast("🏛️ Nouveau rang : <b>"+LEVELS[lv][1]+"</b>",3000);confetti(50)},400); }
+}
+function endSession(aborted){
+  if(timerH){clearInterval(timerH);timerH=null}
+  const s=sess; sess=null;
+  if(!s || (aborted && s.done===0)){ show("home"); renderHome(); return; }
+  const answered=s.ok+s.mid+s.ko, acc=answered?Math.round(s.ok/answered*100):0;
+  const title = acc>=90?"Digne de Périclès !":acc>=70?"Belle séance, citoyen !":acc>=50?"En bonne voie":"Il faut y revenir";
+  const missed=[...s.missed].map(id=>BYID[id]);
+  $("#end").innerHTML=`
+    <div class="kicker">${s.mode==="flash"?"Défi Clepsydre terminé":aborted?"Séance interrompue":"Séance terminée"}</div>
+    <h2 class="serif">${title}</h2>
+    <p style="color:var(--muted)">Rang actuel : <b>${LEVELS[levelOf(S.xp)][1]}</b> · ${S.xp} points au total</p>
+    <div class="endgrid">
+      <div class="stat"><b>+${s.xp}</b><span>points gagnés</span></div>
+      <div class="stat"><b>${acc} %</b><span>de « Su »</span></div>
+      <div class="stat"><b>${s.maxCombo}</b><span>meilleur combo</span></div>
+      <div class="stat"><b>${s.ok}/${answered}</b><span>réponses sues</span></div>
+    </div>
+    ${missed.length?`<div class="missed"><h3 class="serif" style="margin:0 0 6px">À retravailler (${missed.length})</h3><ul>${missed.map(c=>`<li><b style="color:${PARTS[c.part].color}">${PARTS[c.part].short}</b> — ${c.front}</li>`).join("")}</ul><p style="color:var(--muted);font-size:.9rem">Ces cartes sont en boîte 1 : elles reviendront en priorité à la prochaine séance.</p></div>`:""}
+    <div class="endbtns">
+      <button class="btn primary" onclick="startSession('${s.mode==="flash"?"flash":"session"}')">${s.mode==="flash"?"Rejouer le défi":"Nouvelle séance"}</button>
+      ${missed.length?`<button class="btn" onclick="startSession('rattrapage')">Rattraper les ratées</button>`:""}
+      <button class="btn ghost" onclick="goHome()">Accueil</button>
+    </div>`;
+  show("end"); if(acc>=80&&answered>=5) confetti();
+}
+
+/* ---------- Parcourir ---------- */
+function openBrowse(){ show("browse"); $("#search").value=""; renderBrowse(); }
+function renderBrowse(){
+  const q=$("#search").value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  const norm=s=>s.replace(/<[^>]+>/g," ").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  const list=filtered().filter(c=>!q||norm(c.front+" "+c.back+" "+c.deep).includes(q));
+  $("#browseList").innerHTML = list.length ? Object.keys(PARTS).map(k=>{
+    const l=list.filter(c=>c.part===k); if(!l.length) return "";
+    return `<h3 class="serif" style="margin:18px 0 6px;color:${PARTS[k].color}">${PARTS[k].label}</h3>`+l.map(c=>{const b=(S.cards[c.id]||{}).box||0;return `<details class="bc" style="--pc:${PARTS[k].color}"><summary>${c.front}<small>${c.type} · ${b?"boîte "+b:"nouvelle"}</small></summary><div class="ans">${c.back}</div>${c.deep?`<div class="deep"><h4>Pour aller plus loin</h4>${c.deep}</div>`:""}</details>`}).join("");
+  }).join("") : `<p style="color:var(--muted)">Aucune carte ne correspond.</p>`;
+}
+
+/* ---------- Bilan & reset ---------- */
+function copyReport(){
+  const lines=[`Bilan révisions — HGGSP Thème 1 « Démocratie, démocraties » (${new Date().toLocaleDateString("fr-FR")})`,
+    `Rang : ${LEVELS[levelOf(S.xp)][1]} · ${S.xp} points · meilleur combo ${S.bestCombo} · série ${S.streak} j`,
+    `Cartes maîtrisées : ${CARDS.filter(mastered).length}/${CARDS.length}`];
+  Object.entries(PARTS).forEach(([k,p])=>{const l=CARDS.filter(c=>c.part===k);lines.push(`- ${p.label} : ${l.filter(mastered).length}/${l.length}`)});
+  lines.push(`Badges : ${S.badges.map(id=>BADGES.find(b=>b.id===id).n).join(", ")||"aucun"}`);
+  const txt=lines.join("\n");
+  const done=()=>toast("Bilan copié : colle-le dans un message à ton professeur.");
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,()=>fallback());
+  else fallback();
+  function fallback(){const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done()}catch(e){prompt("Copie ce bilan :",txt)}ta.remove()}
+}
+function resetAll(){ if(confirm("Effacer toute ta progression (points, boîtes, badges) ?")){ const th=S.theme; S=fresh(); S.theme=th; save(); renderHome(); toast("Progression réinitialisée."); } }
+
+/* ---------- Clavier ---------- */
+document.addEventListener("keydown",e=>{
+  if($("#study").classList.contains("hidden")||!sess) return;
+  if(e.key===" "||e.key==="Enter"){e.preventDefault(); if(!sess.flipped) flip();}
+  else if(sess.flipped && ["1","2","3"].includes(e.key)) grade(+e.key-1);
+  else if(e.key==="Escape") endSession(true);
+});
+
+renderHome();
+</script>
+</body>
+</html>
