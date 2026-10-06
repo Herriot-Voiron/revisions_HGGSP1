@@ -2,7 +2,12 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f4e79">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Démocratie">
+<meta name="format-detection" content="telephone=no">
 <title>Démocratie, démocraties — Révisions</title>
 <meta name="description" content="Flip cards de révision HGGSP Première, Thème 1 : Démocratie, démocraties. Répétition espacée, points et badges.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,9 +38,11 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,.mode,.card3d,summary{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--ink);font:17px/1.5 "Source Sans 3",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;cursor:pointer}
-.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.wrap{max-width:980px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left))}
 h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
 
 /* Frise grecque */
@@ -46,7 +53,7 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
   opacity:.55}
 
 /* En-tête */
-header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top);background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .hbar{display:flex;align-items:center;gap:14px;padding:10px 0}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;cursor:pointer;background:none;border:0;padding:0}
 .brand .logo{width:34px;height:34px;border-radius:9px;background:var(--aegean);color:var(--bg);display:grid;place-items:center;font-family:Fraunces;font-weight:800}
@@ -123,6 +130,20 @@ section.block{margin:26px 0}
 
 /* Révision */
 #study{padding:20px 0 40px}
+.actions{position:sticky;bottom:0;z-index:4;padding:12px 0 calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 22%)}
+.actions .flipbtn,.actions .grades{margin-top:0}
+@media (max-width:640px){
+  #study{padding:12px 0 0}
+  .sbar{margin-bottom:10px}
+  .card3d{min-height:min(58vh,420px)}
+  .face{padding:20px 18px;border-radius:18px}
+  .q{padding:16px 0}
+  .ans{font-size:1.02rem}
+  .deep{font-size:.92rem}
+  .grades button{padding:16px 6px}
+  .hero h1{font-size:2.3rem}
+  .badges{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+}
 .sbar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .prog{flex:1;height:10px;background:var(--bg2);border-radius:9px;overflow:hidden;border:1px solid var(--line)}
 .prog i{display:block;height:100%;background:var(--aegean);width:0;transition:width .35s}
@@ -132,12 +153,17 @@ section.block{margin:26px 0}
 .timer.low{color:var(--ko)}
 
 .scene{perspective:1600px;position:relative}
-.card3d{display:grid;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,.7,.2,1);cursor:pointer;min-height:360px}
+.card3d{display:grid;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,.7,.2,1);cursor:pointer;min-height:360px}
 .card3d.noanim{transition:none}
 .card3d.flipped{transform:rotateY(180deg)}
-.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:26px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.face{grid-area:1/1;transform:rotateY(0deg);-webkit-transform:rotateY(0deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:26px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden}
 .face::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--pc)}
-.back{transform:rotateY(180deg)}
+.back{transform:rotateY(180deg);-webkit-transform:rotateY(180deg)}
+.scene{touch-action:pan-y}
+.scene.drag{transition:none}
+.scene{transition:transform .25s}
+.swipehint{display:none;text-align:center;color:var(--muted);font-size:.82rem;margin-top:12px}
+@media (hover:none){.swipehint{display:block}}
 .ctag{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .ctag .p{color:var(--pc)}
 .ctag .box{margin-left:auto;letter-spacing:0;text-transform:none}
@@ -301,11 +327,13 @@ details.bc .ans{font-size:1rem;margin-top:8px}
       <div class="face back" id="back"></div>
     </div>
   </div>
+  <div class="actions">
   <button class="flipbtn" id="flipBtn" onclick="flip()">Retourner la carte <span class="kbd">Espace</span></button>
   <div class="grades hidden" id="grades">
     <button class="g0" onclick="grade(0)">Raté<small>revient vite</small><span class="kbd">1</span></button>
     <button class="g1" onclick="grade(1)">Hésité<small>+4</small><span class="kbd">2</span></button>
     <button class="g2" onclick="grade(2)">Su !<small id="g2pts">+10</small><span class="kbd">3</span></button>
+  </div>
   </div>
 </main>
 
@@ -616,7 +644,7 @@ function renderCard(first){
   const qFront = inv ? `<div class="q" style="font-size:clamp(1.1rem,2.6vw,1.4rem);font-weight:500">${c.back}</div><div class="hint">Quelle est cette notion ?</div>` : `<div class="q">${c.front}</div><div class="hint">Formule ta réponse dans ta tête (ou à voix haute), puis retourne.</div>`;
   const backAns = inv ? `<div class="q" style="padding:14px 0 0;margin:0">${(c.front.match(/<em>(.*?)<\/em>/)||[null,plain])[1]}</div><div class="ans">${c.back}</div>` : `<div class="qrecall">${c.front}</div><div class="ans">${c.back}</div>`;
   $("#front").innerHTML = tag + qFront;
-  $("#back").innerHTML = tag + backAns + (c.deep?`<div class="deep"><h4>Pour aller plus loin</h4>${c.deep}</div>`:"");
+  $("#back").innerHTML = tag + backAns + (c.deep?`<div class="deep"><h4>Pour aller plus loin</h4>${c.deep}</div>`:"") + `<div class="swipehint">← glisse pour « Raté » · « Su ! » pour glisser →</div>`;
   requestAnimationFrame(()=>card.classList.remove("noanim"));
   $("#flipBtn").classList.remove("hidden"); $("#grades").classList.add("hidden");
   const total = sess.mode==="flash" ? null : sess.done+sess.queue.length;
@@ -627,9 +655,9 @@ function renderCard(first){
   $("#grades .g1 small").textContent="+"+(4*(sess.mode==="flash"?2:1));
 }
 function flip(){
-  if(!sess) return;
+  if(!sess||sess.lock) return;
   const card=$("#card");
-  if(sess.flipped){ card.classList.toggle("flipped"); return; }
+  if(sess.flipped) return;
   sess.flipped=true; card.classList.add("flipped");
   $("#flipBtn").classList.add("hidden"); $("#grades").classList.remove("hidden");
 }
@@ -642,7 +670,10 @@ function floatXP(n,color){
   $("#scene").appendChild(f); setTimeout(()=>f.remove(),1000);
 }
 function grade(g){
-  if(!sess||!sess.flipped) return;
+  if(!sess||!sess.flipped||sess.lock) return;
+  sess.lock=true; sess.flipped=false;
+  $("#grades").classList.add("hidden");
+  if(navigator.vibrate){ try{ navigator.vibrate(g===0?[40,40,40]:g===2?15:25) }catch(e){} }
   const id=sess.queue.shift(), st=cs(id), now=Date.now();
   const retry=!!sess.tries[id], mult=sess.mode==="flash"?2:1, reinsert=sess.mode!=="flash";
   st.seen++; S.totalSeen++;
@@ -674,7 +705,7 @@ function grade(g){
   if([5,10,15,20,25].includes(sess.combo)) toast("🔥 Combo ×"+sess.combo+" !",1400);
   updateCombo(g===2);
   checkBadges(); save(); renderHeader();
-  setTimeout(()=>sess&&renderCard(),g===2?260:320);
+  setTimeout(()=>{ if(sess){ sess.lock=false; renderCard(); } },g===2?260:320);
 }
 function checkBadges(){
   BADGES.forEach(b=>{ if(!S.badges.includes(b.id) && b.t()){ S.badges.push(b.id); toast(`${b.e} Badge débloqué : <b>${b.n}</b>`,3000); }});
@@ -732,6 +763,27 @@ function copyReport(){
   function fallback(){const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done()}catch(e){prompt("Copie ce bilan :",txt)}ta.remove()}
 }
 function resetAll(){ if(confirm("Effacer toute ta progression (points, boîtes, badges) ?")){ const th=S.theme; S=fresh(); S.theme=th; save(); renderHome(); toast("Progression réinitialisée."); } }
+
+/* ---------- Gestes tactiles : glisser la carte retournée ---------- */
+(function(){
+  const sc=$("#scene"); let x0=null,y0=null,dx=0,horiz=null;
+  sc.addEventListener("touchstart",e=>{ if(!sess||!sess.flipped||sess.lock) return; const t=e.touches[0]; x0=t.clientX; y0=t.clientY; dx=0; horiz=null; },{passive:true});
+  sc.addEventListener("touchmove",e=>{
+    if(x0===null) return; const t=e.touches[0]; dx=t.clientX-x0; const dy=t.clientY-y0;
+    if(horiz===null && (Math.abs(dx)>8||Math.abs(dy)>8)) horiz=Math.abs(dx)>Math.abs(dy);
+    if(horiz){ sc.classList.add("drag"); sc.style.transform=`translateX(${dx}px) rotate(${dx/30}deg)`; sc.style.opacity=String(1-Math.min(Math.abs(dx)/500,.4)); }
+  },{passive:true});
+  const end=()=>{
+    if(x0===null) return; sc.classList.remove("drag");
+    const ok=horiz && Math.abs(dx)>80;
+    sc.style.transform=""; sc.style.opacity="";
+    if(ok){ swallowClick=true; setTimeout(()=>swallowClick=false,400); grade(dx>0?2:0); }
+    x0=null; horiz=null;
+  };
+  sc.addEventListener("touchend",end); sc.addEventListener("touchcancel",end);
+})();
+let swallowClick=false;
+$("#card").addEventListener("click",e=>{ if(swallowClick){ swallowClick=false; e.stopImmediatePropagation(); } },true);
 
 /* ---------- Clavier ---------- */
 document.addEventListener("keydown",e=>{
