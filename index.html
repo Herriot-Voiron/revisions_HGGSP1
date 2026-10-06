@@ -230,7 +230,7 @@ details.bc .ans{font-size:1rem;margin-top:8px}
       <div><span>Démocratie, démocraties</span><small>HGGSP · Première · Thème 1</small></div>
     </button>
     <div class="hstats">
-      <div class="lvl"><span class="name" id="lvlName">Métèque</span><div class="xpbar" title="Progression vers le niveau suivant"><i id="xpFill"></i></div></div>
+      <div class="lvl"><span class="name" id="lvlName">Éphèbe</span><div class="xpbar" title="Progression vers le niveau suivant"><i id="xpFill"></i></div></div>
       <span class="pill" id="xpPill" title="Points d’expérience">✦ 0</span>
       <span class="pill hide-sm" id="streakPill" title="Jours de révision consécutifs">🔥 0</span>
       <button class="icon-btn" id="themeBtn" title="Changer de thème" aria-label="Changer de thème">◐</button>
@@ -511,21 +511,21 @@ const CARDS = RAW.map(([id,part,type,front,back,deep])=>({id,part,type,front,bac
 const BYID = Object.fromEntries(CARDS.map(c=>[c.id,c]));
 
 /* ---------- Niveaux & badges ---------- */
-const LEVELS = [[0,"Métèque"],[150,"Citoyen"],[400,"Bouleute"],[800,"Prytane"],[1400,"Archonte"],[2200,"Stratège"],[3200,"Périclès"],[4500,"Gardien de la Constitution"]];
+const LEVELS = [[0,"Éphèbe"],[150,"Citoyen"],[400,"Bouleute"],[800,"Prytane"],[1400,"Archonte"],[2200,"Stratège"],[3200,"Périclès"],[4500,"Gardien de la Constitution"]];
 const mastered = c => (S.cards[c.id]||{}).box>=4;
 const partDone = p => CARDS.filter(c=>c.part===p).every(mastered);
 const BADGES = [
   {id:"first",e:"🏛️",n:"Premier pas",d:"Réviser une première carte",t:()=>S.totalSeen>=1},
   {id:"c10",e:"🔥",n:"Orateur",d:"Combo de 10",t:()=>S.bestCombo>=10},
-  {id:"c25",e:"⚡",n:"Démosthène",d:"Combo de 25",t:()=>S.bestCombo>=25},
+  {id:"c25",e:"⚡",n:"Démosthène",d:"Combo de 25 — le plus grand orateur d’Athènes",t:()=>S.bestCombo>=25},
   {id:"m25",e:"📜",n:"Isonomie",d:"25 cartes maîtrisées",t:()=>CARDS.filter(mastered).length>=25},
   {id:"m60",e:"🗳️",n:"Bouleute",d:"60 cartes maîtrisées",t:()=>CARDS.filter(mastered).length>=60},
   {id:"intro",e:"🧭",n:"Boussole",d:"Introduction maîtrisée",t:()=>partDone("intro")},
-  {id:"a1",e:"🏺",n:"Pnyx",d:"Axe 1 maîtrisé",t:()=>partDone("a1")},
-  {id:"a2",e:"🌹",n:"Œillet",d:"Axe 2 maîtrisé",t:()=>partDone("a2")},
-  {id:"oec",e:"🇪🇺",n:"Strasbourg",d:"OEC maîtrisé",t:()=>partDone("oec")},
+  {id:"a1",e:"🏺",n:"Pnyx",d:"Axe 1 maîtrisé — la colline où siégeait l’Ecclésia",t:()=>partDone("a1")},
+  {id:"a2",e:"🌺",n:"Œillets d’avril",d:"Axe 2 maîtrisé — en écho au Portugal, 25 avril 1974",t:()=>partDone("a2")},
+  {id:"oec",e:"🇪🇺",n:"Strasbourg",d:"OEC maîtrisé — siège du Parlement européen",t:()=>partDone("oec")},
   {id:"all",e:"🏆",n:"Constitution",d:"Toutes les cartes maîtrisées",t:()=>CARDS.every(mastered)},
-  {id:"flash15",e:"⏳",n:"Clepsydre",d:"15 « Su » en un défi",t:()=>S.flashBest>=15},
+  {id:"flash15",e:"⏳",n:"Clepsydre",d:"15 « Su » en un défi — l’horloge à eau qui minutait les orateurs",t:()=>S.flashBest>=15},
   {id:"s3",e:"📅",n:"Assidu",d:"3 jours de suite",t:()=>S.streak>=3},
   {id:"s7",e:"🦉",n:"Chouette d’Athéna",d:"7 jours de suite",t:()=>S.streak>=7}
 ];
